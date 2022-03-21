@@ -41,4 +41,19 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
+    //okhttp3
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
+    //retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    //AutoDispose解决RxJava内存泄漏
+    implementation 'com.uber.autodispose2:autodispose:2.0.0'
+    implementation 'com.uber.autodispose2:autodispose-android:2.0.0'
+    implementation 'com.uber.autodispose2:autodispose-lifecycle:2.0.0'
+    implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.0.0'
+
+
 }

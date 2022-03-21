@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#2b90cf" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_pane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_25"
+        android:background="@mipmap/round_corner_bg"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/selector_edittext_bg"
+            android:drawableLeft="@android:drawable/sym_action_email"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="Student Number"
+            android:inputType="number"
+            android:minHeight="@dimen/dp_45"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_16" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:background="@drawable/selector_edittext_bg"
+            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:minHeight="@dimen/dp_45"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#f3f3f3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:background="#f7f7f7">
+
+            <CheckBox
+                android:id="@+id/cb_remember_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Remember Password"
+                android:textColor="#999999"
+                android:textSize="@dimen/sp_14" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="#00BFFF	"
+                android:gravity="center"
+                android:padding="@dimen/dp_8"
+                android:text="Login"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.example.smartlibrary.ui.view.OwlView
+        android:id="@+id/owl_view"
+        android:layout_width="@dimen/dp_175"
+        android:layout_height="@dimen/dp_107"
+        android:layout_above="@id/ll_login_pane"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.smartlibrary.ui;
+package com.example.smartlibrary.ui.activity;
 
 
 import android.animation.Animator;
@@ -6,7 +6,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.base.BaseActivity;
+import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.utils.ShareUtils;
 
 import butterknife.BindView;
@@ -36,10 +36,6 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-    @Override
-    public void initPresenter() {
-
-    }
 
     @Override
     public void initView() {
@@ -68,7 +64,7 @@ public class SplashActivity extends BaseActivity {
                 boolean startMain = ShareUtils.getBoolean(SplashActivity.this, GuideActivity.START_MAIN,false);
                 if (startMain) {
 
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, GuideActivity.class));
                 }

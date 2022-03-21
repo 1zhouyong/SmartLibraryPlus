@@ -1,66 +1,43 @@
 package com.example.smartlibrary.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartlibrary.R;
-import com.example.smartlibrary.utils.TUtil;
 import com.example.smartlibrary.utils.ToastUitl;
 import com.example.smartlibrary.widget.LoadingDialog;
 import com.example.smartlibrary.widget.StatusBarCompat;
 
 import butterknife.ButterKnife;
 
-/*
- * -----------------------------------------------------------------
- * Copyright (C) 2011-2022, by your Signway, All rights reserved.
- * -----------------------------------------------------------------
- *
- * ProjectName: SmartLibrary
- *
- * Author: ZY
- *
- * Email: yong.zhou@signway.cn
- *
- * Description:
- *
- * -----------------------------------------------------------------
- * 2022/3/9 : Create BaseActivity.java
- * -----------------------------------------------------------------
- */
-public abstract class BaseActivity<T extends BasePresenter,E extends BaseModel> extends AppCompatActivity {
-
-
-    public T mPresenter;
-    public E mModel;
-    public Context mContext;
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        setContentView(this.getLayoutId());
         ButterKnife.bind(this);
-        mPresenter = TUtil.getT(this, 0);
-        mModel=TUtil.getT(this,1);
-        if(mPresenter!=null){
-            mPresenter.mContext=this;
-        }
-        this.initPresenter();
-        this.initView();
+        initView();
     }
 
-    /*********************子类实现*****************************/
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
-    //获取布局文件
+    /**
+     * 设置布局
+     *
+     * @return
+     */
     public abstract int getLayoutId();
-    //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
-    public abstract void initPresenter();
-    //初始化view
+
+    /**
+     * 初始化视图
+     */
     public abstract void initView();
 
     /**

@@ -1,4 +1,4 @@
-package com.example.smartlibrary.ui;
+package com.example.smartlibrary.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.MyPagerAdapter;
 import com.example.smartlibrary.base.BaseActivity;
+import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.utils.DensityUtil;
 import com.example.smartlibrary.utils.ShareUtils;
 
@@ -57,6 +58,16 @@ public class GuideActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guide;
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     /**
@@ -110,27 +121,16 @@ public class GuideActivity extends BaseActivity {
                 //记录进入引导页面
                 ShareUtils.putBoolean(GuideActivity.this, START_MAIN, true);
                 //跳转到主页面
-                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                startActivity(new Intent(GuideActivity.this, LoginActivity.class));
 
                 finish();//关闭引导页面
             }
         });
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_guide;
-    }
 
-    @Override
-    public void initPresenter() {
 
-    }
 
-    @Override
-    public void initView() {
-
-    }
 
 
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {

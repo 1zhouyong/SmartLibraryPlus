@@ -1,7 +1,5 @@
 package com.example.smartlibrary.base;
 
-import android.content.Context;
-
 /*
  * -----------------------------------------------------------------
  * Copyright (C) 2011-2022, by your Signway, All rights reserved.
@@ -19,24 +17,35 @@ import android.content.Context;
  * 2022/3/9 : Create BasePresenter.java
  * -----------------------------------------------------------------
  */
-public abstract class BasePresenter<T, E> {
+public abstract class BasePresenter<V extends BaseView> {
 
-    public Context mContext;
-    public E mModel;
-    public T mView;
+    protected V mView;
 
-    public void setVM(T v, E m) {
-        this.mView = v;
-        this.mModel = m;
-        this.onStart();
+
+    /**
+     * 绑定view，一般在初始化中调用该方法
+     *
+     * @param view view
+     */
+    public void attachView(V view) {
+        this.mView = view;
     }
 
-    public void onStart() {
+    /**
+     * 解除绑定view，一般在onDestroy中调用
+     */
+
+    public void detachView() {
+        this.mView = null;
     }
 
-
-    public void onDestroy() {
-
+    /**
+     * View是否绑定
+     *
+     * @return
+     */
+    public boolean isViewAttached() {
+        return mView != null;
     }
 
 }
