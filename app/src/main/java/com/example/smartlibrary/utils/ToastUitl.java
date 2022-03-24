@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartlibrary.R;
-import com.example.smartlibrary.baseapp.BaseApplication;
+import com.example.smartlibrary.app.BaseApplication;
 
 /**
  * Toast统一管理类

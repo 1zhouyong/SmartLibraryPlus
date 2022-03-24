@@ -21,6 +21,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -54,6 +57,12 @@ dependencies {
     implementation 'com.uber.autodispose2:autodispose-android:2.0.0'
     implementation 'com.uber.autodispose2:autodispose-lifecycle:2.0.0'
     implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.0.0'
+
+    //菜单栏
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar'
+
+    //打印日志
+    implementation 'com.orhanobut:logger:1.13'
 
 
 }

@@ -14,6 +14,7 @@ import com.example.smartlibrary.bean.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.presenter.LoginPresenter;
 import com.example.smartlibrary.ui.view.OwlView;
+import com.example.smartlibrary.utils.ShareUtils;
 
 import butterknife.BindView;
 
@@ -22,7 +23,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @BindView(R.id.email)
     EditText edtEmail;
     @BindView(R.id.password)
-    EditText password;
+    EditText edtPassword;
     @BindView(R.id.cb_remember_password)
     CheckBox cdRememberPassword;
     @BindView(R.id.btn_login)
@@ -34,8 +35,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
 
     @Override
     public int getLayoutId() {
@@ -46,13 +47,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     public void initView() {
         initOwnView();
+        initData();
         mPresenter = new LoginPresenter();
         mPresenter.attachView(this);
         btnLogin.setOnClickListener(this);
     }
 
+    private void initData() {
+        edtEmail.setText(ShareUtils.getString(this,"username"));
+        edtPassword.setText(ShareUtils.getString(this,"password"));
+        cdRememberPassword.setChecked(ShareUtils.getBoolean(this,"remember",true));
+    }
+
     private void initOwnView() {
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -83,17 +91,28 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     public void onSuccess(BaseObjectBean<String> bean) {
         Log.d("LoginActivity", "onSuccess: "+bean.getResult());
-
+        startActivity(MainActivity.class,null);
     }
 
 
     @Override
     public void onClick(View view) {
-        if (getUsername().isEmpty() || getPassword().isEmpty()) {
+        if (getUsername().isEmpty() || getEdtPassword().isEmpty()) {
             Toast.makeText(this, "帐号密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        mPresenter.login(getUsername(), getPassword());
+        mPresenter.login(getUsername(), getEdtPassword());
+        if (cdRememberPassword.isChecked()){
+            saveUsernameAndPassword(getUsername(),getEdtPassword(),cdRememberPassword.isChecked());
+        }else {
+            saveUsernameAndPassword("","",cdRememberPassword.isChecked());
+        }
+    }
+
+    private void saveUsernameAndPassword(String username, String edtPassword, boolean checked) {
+        ShareUtils.putString(this,"username",username);
+        ShareUtils.putString(this,"password",edtPassword);
+        ShareUtils.putBoolean(this,"remember",checked);
     }
 
 
@@ -107,7 +126,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     /**
      * @return 密码
      */
-    private String getPassword() {
-        return password.getText().toString().trim();
+    private String getEdtPassword() {
+        return edtPassword.getText().toString().trim();
     }
 }
