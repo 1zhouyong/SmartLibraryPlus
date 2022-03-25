@@ -1,4 +1,4 @@
-package com.example.smartlibrary.bean;
+package com.example.smartlibrary.entity;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
 

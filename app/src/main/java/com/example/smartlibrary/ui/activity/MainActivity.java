@@ -1,15 +1,15 @@
 package com.example.smartlibrary.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.app.AppConstant;
 import com.example.smartlibrary.base.BaseActivity;
-import com.example.smartlibrary.base.BaseMvpActivity;
-import com.example.smartlibrary.bean.TabEntity;
+import com.example.smartlibrary.entity.TabEntity;
 import com.example.smartlibrary.ui.fragment.BooksMainFragment;
 import com.example.smartlibrary.ui.fragment.LecturesMainFragment;
 import com.example.smartlibrary.ui.fragment.MyMainFragment;

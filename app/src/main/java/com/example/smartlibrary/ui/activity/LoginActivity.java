@@ -75,12 +75,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @Override
     public void showLoading() {
-
+        startProgressDialog("正在登录...");
     }
 
     @Override
     public void hideLoading() {
-
+        stopProgressDialog();
     }
 
     @Override
@@ -89,8 +89,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     }
 
     @Override
-    public void onSuccess(BaseObjectBean<String> bean) {
+    public void onSuccess(BaseObjectBean<String>  bean) {
         Log.d("LoginActivity", "onSuccess: "+bean.getResult());
+        ShareUtils.putString(this,"token", bean.getResult());
         startActivity(MainActivity.class,null);
     }
 
