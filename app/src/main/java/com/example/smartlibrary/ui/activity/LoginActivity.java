@@ -13,8 +13,8 @@ import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.presenter.LoginPresenter;
-import com.example.smartlibrary.ui.view.OwlView;
 import com.example.smartlibrary.utils.ShareUtils;
+import com.example.smartlibrary.widget.OwlView;
 
 import butterknife.BindView;
 

@@ -22,6 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,9 +61,11 @@ public class BooksMainFragment extends BaseFragment {
             "哲学", "宗教", "经济", "文化", "科学", "教育", "体育", "语言", "医药", "卫生",
             "艺术", "历史", "地理", "文学", "科学", "农业", "工业", "交通", "航空", "环境"
     };
+    private int[] bookTypeArrayReq;
     private List<ChannelBean> myChannelList;
     private List<ChannelBean> othersChannelList;
     private BaseFragmentAdapter fragmentAdapter;
+
 
 
     @Override
@@ -75,30 +78,29 @@ public class BooksMainFragment extends BaseFragment {
     private void initShareData() {
         myChannelList = ShareUtils.getList(getActivity(), "MyChannel");
         othersChannelList = ShareUtils.getList(getActivity(), "OthersChannel");
-        LogUtils.logd("myChannelList === " + myChannelList);
+        LogUtils.logd("bookType === " + myChannelList);
     }
 
     @Override
     protected void initView(View view) {
-
         initTabAndViewPager();
-
-
     }
 
     private void initTabAndViewPager() {
         List<String> channelNames = new ArrayList<>();
         List<Fragment> mNewsFragmentList = new ArrayList<>();
+        bookTypeArrayReq = new int[myChannelList.size()];
         for (int i = 0; i < myChannelList.size(); i++) {
             for (int j = 0; j < bookTypeArray.length; j++) {
-                if (bookTypeArray[i].equals(myChannelList.get(j))) {
-
+                if (bookTypeArray[j].equals(myChannelList.get(i).getSrc())) {
+                    bookTypeArrayReq[i] = j + 1;
                 }
             }
         }
-        for (ChannelBean channelName : myChannelList) {
-            channelNames.add(channelName.getSrc());
-            mNewsFragmentList.add(createListFragments());
+        LogUtils.logd("bookTypeArrayReq == " + Arrays.toString(bookTypeArrayReq));
+        for (int i = 0; i < myChannelList.size(); i++) {
+            channelNames.add(myChannelList.get(i).getSrc());
+            mNewsFragmentList.add(createListFragments(bookTypeArrayReq[i]));
         }
         if (fragmentAdapter == null) {
             fragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mNewsFragmentList, channelNames);
@@ -111,9 +113,10 @@ public class BooksMainFragment extends BaseFragment {
         MyUtils.dynamicSetTabLayoutMode(tabs);
     }
 
-    private Fragment createListFragments() {
+    private Fragment createListFragments(int bookType) {
         BookPageFragment fragment = new BookPageFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("bookType",String.valueOf(bookType));
         fragment.setArguments(bundle);
         return fragment;
     }

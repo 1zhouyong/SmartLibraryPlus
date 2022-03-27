@@ -1,9 +1,12 @@
 package com.example.smartlibrary.ui.activity;
 
-import android.content.Intent;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartlibrary.R;
@@ -27,6 +30,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.tab_layout)
     CommonTabLayout tabLayout;
+    @BindView(R.id.rl)
+    RelativeLayout rl;
     private String[] mTitles = {"图书馆", "订座","讲座","我的"};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private int[] mIconUnselectIds = {
@@ -45,6 +50,7 @@ public class MainActivity extends BaseActivity {
     private SeatsMainFragment seatsMainFragment;
     private LecturesMainFragment lecturesMainFragment;
     private MyMainFragment myMainFragment;
+    private static int tabLayoutHeight;
 
 
 
@@ -53,6 +59,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //初始化frament
         initFragment(savedInstanceState);
+        tabLayout.measure(0,0);
+        tabLayoutHeight=tabLayout.getMeasuredHeight();
     }
 
 
@@ -69,6 +77,35 @@ public class MainActivity extends BaseActivity {
 
 
     }
+
+    /**
+     * 菜单显示隐藏动画
+     * @param showOrHide
+     */
+    private void startAnimation(boolean showOrHide){
+        final ViewGroup.LayoutParams layoutParams = tabLayout.getLayoutParams();
+        ValueAnimator valueAnimator;
+        ObjectAnimator alpha;
+        if(!showOrHide){
+            valueAnimator = ValueAnimator.ofInt(tabLayoutHeight, 0);
+            alpha = ObjectAnimator.ofFloat(tabLayout, "alpha", 1, 0);
+        }else{
+            valueAnimator = ValueAnimator.ofInt(0, tabLayoutHeight);
+            alpha = ObjectAnimator.ofFloat(tabLayout, "alpha", 0, 1);
+        }
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                layoutParams.height= (int) valueAnimator.getAnimatedValue();
+                tabLayout.setLayoutParams(layoutParams);
+            }
+        });
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.setDuration(500);
+        animatorSet.playTogether(valueAnimator,alpha);
+        animatorSet.start();
+    }
+
 
     private void initTab() {
         for (int i = 0; i < mTitles.length; i++) {
@@ -163,5 +200,6 @@ public class MainActivity extends BaseActivity {
             outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, tabLayout.getCurrentTab());
         }
     }
+
 
 }

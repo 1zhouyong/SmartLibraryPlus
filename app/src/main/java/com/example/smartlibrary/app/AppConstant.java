@@ -19,4 +19,8 @@ package com.example.smartlibrary.app;
  */
 public class AppConstant {
     public static final String HOME_CURRENT_TAB_POSITION="HOME_CURRENT_TAB_POSITION";
+
+    public static final String baseUrl = "http://10.0.2.2:8899/library/";
+
+
 }

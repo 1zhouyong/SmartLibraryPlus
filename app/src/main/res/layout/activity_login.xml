@@ -103,7 +103,7 @@
 
     </LinearLayout>
 
-    <com.example.smartlibrary.ui.view.OwlView
+    <com.example.smartlibrary.widget.OwlView
         android:id="@+id/owl_view"
         android:layout_width="@dimen/dp_175"
         android:layout_height="@dimen/dp_107"

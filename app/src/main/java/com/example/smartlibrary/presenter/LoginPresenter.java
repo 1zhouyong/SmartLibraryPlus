@@ -7,6 +7,9 @@ import com.example.smartlibrary.bean.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.model.LoginModel;
 import com.example.smartlibrary.net.RxScheduler;
+import com.example.smartlibrary.utils.mapToRequestBodyUtil;
+
+import java.util.HashMap;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
@@ -23,8 +26,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
     @Override
     public void login(String username, String password) {
-
-        model.login(username, password)
+        HashMap<String, String> map = new HashMap<>();
+        map.put("studyId",username);
+        map.put("password",password);
+        model.login(mapToRequestBodyUtil.convertMapToBody(map))
                 .compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())//解决内存泄漏
                 .subscribe(new Observer<BaseObjectBean<String>>() {

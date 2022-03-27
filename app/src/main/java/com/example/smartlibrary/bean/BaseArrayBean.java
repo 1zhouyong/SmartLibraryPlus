@@ -16,10 +16,18 @@ public class BaseArrayBean<T> {
      * msg : 获取成功
      * result : [] 数组
      */
-
+    private Boolean success;
     private int errorCode;
     private String errorMsg;
     private List<T> result;
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
 
     public int getErrorCode() {
         return errorCode;

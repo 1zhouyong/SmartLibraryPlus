@@ -3,6 +3,9 @@ package com.example.smartlibrary.net;
 import androidx.annotation.NonNull;
 
 import com.example.smartlibrary.BuildConfig;
+import com.example.smartlibrary.app.AppConstant;
+import com.example.smartlibrary.app.BaseApplication;
+import com.example.smartlibrary.utils.ShareUtils;
 
 import java.io.IOException;
 
@@ -19,7 +22,6 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient instance;
     private APIService apiService;
-    private String baseUrl = "http://10.0.2.2:8899/library/";
     private Retrofit retrofit;
     private OkHttpClient okHttpClient;
 
@@ -47,8 +49,13 @@ public class RetrofitClient {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request original = chain.request();
-                Request.Builder requestBuilder = original.newBuilder();
-
+                String token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
+                Request.Builder requestBuilder;
+                if ( token != null && !token.isEmpty()){
+                    requestBuilder = original.newBuilder().header("token",token);
+                }else {
+                    requestBuilder = original.newBuilder();
+                }
                 //添加Token
 //                        .header("token", "");
                 Request request = requestBuilder.build();
@@ -99,7 +106,7 @@ public class RetrofitClient {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     //设置网络请求的Url地址
-                    .baseUrl(baseUrl)
+                    .baseUrl(AppConstant.baseUrl)
                     //设置数据解析器
                     .addConverterFactory(GsonConverterFactory.create())
                     //设置网络请求适配器，使其支持RxJava与RxAndroid

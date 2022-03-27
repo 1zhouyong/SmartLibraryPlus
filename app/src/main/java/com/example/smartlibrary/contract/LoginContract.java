@@ -4,11 +4,12 @@ import com.example.smartlibrary.base.BaseView;
 import com.example.smartlibrary.bean.BaseObjectBean;
 
 import io.reactivex.rxjava3.core.Observable;
+import okhttp3.RequestBody;
 
 public interface LoginContract {
 
     interface Model {
-        Observable<BaseObjectBean<String>> login(String username, String password);
+        Observable<BaseObjectBean<String>> login(RequestBody requestBody);
     }
 
     interface View extends BaseView {

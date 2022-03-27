@@ -1,4 +1,4 @@
-package com.example.smartlibrary.ui.view;
+package com.example.smartlibrary.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

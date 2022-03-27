@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.base.BaseActivity;
-import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.utils.ShareUtils;
 
 import butterknife.BindView;
@@ -63,7 +62,7 @@ public class SplashActivity extends BaseActivity {
                 //当动画播放完成进入--主页面或者引导页面
                 boolean startMain = ShareUtils.getBoolean(SplashActivity.this, GuideActivity.START_MAIN,false);
                 if (startMain) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, GuideActivity.class));
                 }
