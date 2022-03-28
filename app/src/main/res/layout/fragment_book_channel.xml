@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/gridView_book_channel"
         android:numColumns="3"
+        android:layout_marginBottom="60dp"
         />
 
 

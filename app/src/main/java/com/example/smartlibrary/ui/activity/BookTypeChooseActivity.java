@@ -1,28 +1,21 @@
 package com.example.smartlibrary.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.channel.ChannelAdapter;
 import com.example.smartlibrary.adapter.channel.ChannelBean;
 import com.example.smartlibrary.adapter.channel.ToucheCallBcak;
-import com.example.smartlibrary.app.BaseApplication;
 import com.example.smartlibrary.base.BaseActivity;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.ShareUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +29,7 @@ public class BookTypeChooseActivity extends BaseActivity implements ChannelAdapt
     private ChannelAdapter channelAdapter;
     private GridLayoutManager manager;
     private ItemTouchHelper mTouchHelper;
+
 
 
     @Override

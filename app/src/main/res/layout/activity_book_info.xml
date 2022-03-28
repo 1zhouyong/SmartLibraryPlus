@@ -7,135 +7,151 @@
     android:orientation="vertical"
     tools:context=".ui.activity.BookInfoActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@mipmap/book_background"
-        android:orientation="horizontal">
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:background="@mipmap/book_background">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/action_bar"
+            android:background="@color/transparent"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:navigationIcon="@mipmap/ic_arrow_back"
+            />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_book_name"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_book_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_book_publish"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_book_publish_time"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:id="@+id/tv_book_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="评分："
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_book_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
                     android:textColor="#000"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@mipmap/start"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@mipmap/start"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@mipmap/start"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@mipmap/start"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@mipmap/start"
-                    android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv_book_publish"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="5.0分"
                     android:textColor="#000"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv_book_publish_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="评分："
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/start"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/start"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/start"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/start"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/start"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="5.0分"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-            <ImageView
-                android:id="@+id/iv_boo_pic"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp" />
+                android:layout_weight="0.5">
 
+                <ImageView
+                    android:id="@+id/iv_boo_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
     <TextView
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
