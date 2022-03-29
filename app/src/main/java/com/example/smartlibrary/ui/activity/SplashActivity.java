@@ -62,10 +62,11 @@ public class SplashActivity extends BaseActivity {
                 //当动画播放完成进入--主页面或者引导页面
                 boolean startMain = ShareUtils.getBoolean(SplashActivity.this, GuideActivity.START_MAIN,false);
                 if (startMain) {
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, GuideActivity.class));
                 }
+                finish();
 
             }
 

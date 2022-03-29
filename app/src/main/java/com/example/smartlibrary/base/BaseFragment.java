@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.smartlibrary.app.BaseApplication;
+
 import butterknife.ButterKnife;
 
 /**
@@ -52,7 +54,7 @@ public abstract class BaseFragment extends Fragment {
      **/
     public void startActivity(Class<?> cls, Bundle bundle) {
         Intent intent = new Intent();
-        intent.setClass(getActivity(), cls);
+        intent.setClass(BaseApplication.getAppContext(), cls);
         if (bundle != null) {
             intent.putExtras(bundle);
         }

@@ -55,4 +55,19 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="setting_radio_button_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="setting_work_mode_style_land" parent="setting_radio_button_style">
+        <item name="android:padding">15dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:drawablePadding">25dp</item>
+        <item name="android:layout_width">@dimen/dimen_dp_300</item>
+        <item name="android:layout_height">@dimen/dimen_dp_200</item>
+    </style>
+
 </resources>

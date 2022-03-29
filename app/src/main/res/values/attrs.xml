@@ -15,4 +15,18 @@
     <attr name="dayNightBackgroundDrawableAttr" format="string|reference"/><!--切换背景图片属性-->
 </declare-styleable>
 
+    <declare-styleable name="AnimateRadioButton">
+        <attr name="blur_solid" format="boolean"/>
+        <attr name="background_start" format="color|reference"/>
+        <attr name="background_end" format="color|reference"/>
+        <attr name="highlight_start" format="color"/>
+        <attr name="highlight_end" format="color"/>
+        <attr name="focusBorder_width" format="integer"/>
+        <attr name="focusBorder_radius" format="integer"/>
+        <attr name="originBackgroundOn" format="boolean"/>
+        <attr name="drawableIcon" format="reference"/>
+        <attr name="radiobutton_animation" format="boolean"/>
+
+    </declare-styleable>
+
 </resources>

@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <TextView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="seat"
-        android:gravity="center"/>
+    <com.example.smartlibrary.widget.NormalTitleBar
+        android:id="@+id/ntb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.example.smartlibrary.widget.CustomRadioGroup
+        android:id="@+id/setting_work_mode_rg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/dimen_dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+
+        <com.example.smartlibrary.widget.AnimateRadioButton
+            android:id="@+id/rb_seat_today"
+            style="@style/setting_work_mode_style_land"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/dimen_dp_40"
+            android:layout_marginEnd="@dimen/dimen_dp_40"
+            android:drawableTop="@mipmap/icon_seat_today"
+            android:text="今天" />
+
+        <!-- 灰色的线条图片 -->
+
+        <com.example.smartlibrary.widget.AnimateRadioButton
+            android:id="@+id/rb_seat_tomorrow"
+            style="@style/setting_work_mode_style_land"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dimen_dp_40"
+            android:layout_marginEnd="@dimen/dimen_dp_40"
+            android:drawableTop="@mipmap/icon_seat_tomorrow"
+            android:text="明天" />
+
+
+
+
+
+        <View
+            android:layout_width="@dimen/dimen_dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+    </com.example.smartlibrary.widget.CustomRadioGroup>
+
+</LinearLayout>

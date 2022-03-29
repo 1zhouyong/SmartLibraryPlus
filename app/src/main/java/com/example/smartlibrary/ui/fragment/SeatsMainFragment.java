@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.smartlibrary.R;
+import com.example.smartlibrary.base.BaseFragment;
+import com.example.smartlibrary.widget.NormalTitleBar;
+
+import butterknife.BindView;
 
 /*
  * -----------------------------------------------------------------
@@ -28,12 +32,20 @@ import com.example.smartlibrary.R;
  * 2022/3/23 : Create SeatsMainFragment.java
  * -----------------------------------------------------------------
  */
-public class SeatsMainFragment extends Fragment {
+public class SeatsMainFragment extends BaseFragment {
 
-    @Nullable
+
+    @BindView(R.id.ntb)
+    NormalTitleBar normalTitleBar;
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seat, container, false);
-        return view;
+    protected void initView(View view) {
+        normalTitleBar.setBackVisibility(false);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_seat;
     }
 }

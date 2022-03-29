@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.utils.ToastUitl;
@@ -21,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(this.getLayoutId());
         ButterKnife.bind(this);
         initView();
+        SetStatusBarColor();
     }
 
     @Override
@@ -146,6 +148,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showNetErrorTip(String error) {
         ToastUitl.showToastWithImg(error,R.mipmap.ic_wifi_off);
+    }
+
+
+
+    /**
+     * 着色状态栏（4.4以上系统有效）
+     */
+    protected void SetStatusBarColor(){
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.main_color));
+    }
+    /**
+     * 着色状态栏（4.4以上系统有效）
+     */
+    protected void SetStatusBarColor(int color){
+        StatusBarCompat.setStatusBarColor(this,color);
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.smartlibrary.ui.activity;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,16 +11,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.MyPagerAdapter;
 import com.example.smartlibrary.base.BaseActivity;
+import com.example.smartlibrary.utils.CheckPermissionUtils;
 import com.example.smartlibrary.utils.DensityUtil;
 import com.example.smartlibrary.utils.ShareUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -72,7 +77,7 @@ public class GuideActivity extends BaseActivity {
      * 初始化引导页的数据
      */
     private void initData() {
-        widthDpi = DensityUtil.dp2px(this, 10);
+        widthDpi = DensityUtil.dip2px( 10);
         Log.e("GuideActivity", widthDpi + "-----------------");
 
         imageViews = new ArrayList<>();
@@ -116,17 +121,49 @@ public class GuideActivity extends BaseActivity {
         btnStartMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //记录进入引导页面
-                ShareUtils.putBoolean(GuideActivity.this, START_MAIN, true);
-                //跳转到主页面
-                startActivity(new Intent(GuideActivity.this, LoginActivity.class));
+                checkAppPermission();
 
-                finish();//关闭引导页面
+
             }
         });
     }
 
+    private void checkAppPermission() {
+        final String [] strings = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+        };
 
+        new CheckPermissionUtils(this).requestPermission(strings, new CheckPermissionUtils.PermissionLinstener() {
+            @Override
+            public void onSuccess(Context context, List<String> data) {
+                Toast.makeText(context, "申请成功", Toast.LENGTH_SHORT).show();
+                //记录进入引导页面
+                ShareUtils.putBoolean(GuideActivity.this, START_MAIN, true);
+                //跳转到主页面
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+
+                finish();//关闭引导页面
+            }
+
+            @Override
+            public void onFailed(Context context, List<String> data) {
+                Toast.makeText(context, "申请失败", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            /**
+             *  可在此调用，GuidePermission();引导用户前往系统设置页面获取权限
+             * @param context
+             * @param data
+             */
+            @Override
+            public void onNotApply(final Context context, List<String> data) {
+                Toast.makeText(context, "用户点击了不再提示", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
 
 

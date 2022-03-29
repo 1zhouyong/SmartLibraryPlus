@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.channel.ChannelBean;
+import com.example.smartlibrary.app.BaseApplication;
 import com.example.smartlibrary.base.BaseFragment;
 import com.example.smartlibrary.base.BaseFragmentAdapter;
 import com.example.smartlibrary.ui.activity.BookTypeChooseActivity;
@@ -76,8 +77,8 @@ public class BooksMainFragment extends BaseFragment {
     }
 
     private void initShareData() {
-        myChannelList = ShareUtils.getList(getActivity(), "MyChannel");
-        othersChannelList = ShareUtils.getList(getActivity(), "OthersChannel");
+        myChannelList = ShareUtils.getList(BaseApplication.getAppContext(), "MyChannel");
+        othersChannelList = ShareUtils.getList(BaseApplication.getAppContext(), "OthersChannel");
         LogUtils.logd("bookType === " + myChannelList);
     }
 
@@ -130,7 +131,7 @@ public class BooksMainFragment extends BaseFragment {
         bookTypeChannelList.addAll(othersChannelList);
         Bundle bundle = new Bundle();
         bundle.putSerializable("BookTypeChannelList", (Serializable) bookTypeChannelList);
-        Intent intent = new Intent(getActivity(), BookTypeChooseActivity.class);
+        Intent intent = new Intent(BaseApplication.getAppContext(), BookTypeChooseActivity.class);
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }

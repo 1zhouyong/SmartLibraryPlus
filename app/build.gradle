@@ -68,6 +68,9 @@ dependencies {
     //基于Glide的图片加载框架
     implementation 'com.libin.imageloader:ImageLoader:1.0.3'
 
+    //添加AndPermission依赖
+    implementation 'com.yanzhenjie:permission:2.0.3'
+
 
 
 }
