@@ -222,7 +222,7 @@ public class MyMainFragment extends BaseFragment {
             String state = Environment.getExternalStorageState();
             if (!state.equals(Environment.MEDIA_MOUNTED)) return;
 
-
+            LogUtils.logd("readpic == "+readpic());
             // 把原图显示到界面上
 //            Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
 //            Tiny.getInstance().source(readpic()).asFile().withOptions(options).compress(new FileWithBitmapCallback() {
