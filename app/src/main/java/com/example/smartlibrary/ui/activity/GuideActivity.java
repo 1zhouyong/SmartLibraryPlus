@@ -133,6 +133,8 @@ public class GuideActivity extends BaseActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA,
+
+
         };
 
         new CheckPermissionUtils(this).requestPermission(strings, new CheckPermissionUtils.PermissionLinstener() {
