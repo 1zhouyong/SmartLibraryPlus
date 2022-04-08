@@ -1,6 +1,6 @@
 package com.example.smartlibrary.model;
 
-import com.example.smartlibrary.bean.BaseObjectBean;
+import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.net.RetrofitClient;
 

@@ -1,18 +1,17 @@
 package com.example.smartlibrary.contract;
 
 import com.example.smartlibrary.base.BaseView;
-import com.example.smartlibrary.bean.base.BaseArrayBean;
-import com.example.smartlibrary.bean.BookTypeBean;
+import com.example.smartlibrary.bean.base.BaseObjectBean;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
-import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
 
-public interface BookMainContract {
+public interface MyMainContract {
 
     interface Model{
-        Observable<BaseArrayBean<BookTypeBean>> bookSelect(RequestBody body);
+        Observable<BaseObjectBean<String>> uploadPic(String header, String id, List<MultipartBody.Part> file);
     }
 
     interface View extends BaseView{
@@ -25,10 +24,10 @@ public interface BookMainContract {
         @Override
         void onError(String errMessage);
 
-        void onSuccess(List<BookTypeBean> bean);
+        void onSuccess(String msg);
     }
 
-    interface Presenter {
-        void selectBook(String bookType);
+    interface Presenter{
+        void uploadPic(String header , String id, List<MultipartBody.Part> file);
     }
 }

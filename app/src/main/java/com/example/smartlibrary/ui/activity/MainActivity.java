@@ -11,13 +11,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.app.AppConstant;
-import com.example.smartlibrary.base.BaseActivity;
+import com.example.smartlibrary.app.BaseApplication;
+import com.example.smartlibrary.base.BaseMvpActivity;
+import com.example.smartlibrary.bean.UseInfoBean;
+import com.example.smartlibrary.contract.MainContract;
 import com.example.smartlibrary.entity.TabEntity;
+import com.example.smartlibrary.presenter.MainPresenter;
 import com.example.smartlibrary.ui.fragment.BooksMainFragment;
 import com.example.smartlibrary.ui.fragment.LecturesMainFragment;
 import com.example.smartlibrary.ui.fragment.MyMainFragment;
 import com.example.smartlibrary.ui.fragment.SeatsMainFragment;
 import com.example.smartlibrary.utils.LogUtils;
+import com.example.smartlibrary.utils.ShareUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -26,7 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.tab_layout)
     CommonTabLayout tabLayout;
@@ -51,14 +56,19 @@ public class MainActivity extends BaseActivity {
     private LecturesMainFragment lecturesMainFragment;
     private MyMainFragment myMainFragment;
     private static int tabLayoutHeight;
-
+    public UseInfoBean.UserBean infoBean;
+    private Bundle bundle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //初始化frament
-        initFragment(savedInstanceState);
+        bundle = savedInstanceState;
+        // 初始化用户信息
+        MainPresenter mainPresenter = new MainPresenter();
+        mainPresenter.attachView(this);
+        mainPresenter.getInfo(ShareUtils.getString(BaseApplication.getAppContext(), "token", ""));
+
         tabLayout.measure(0,0);
         tabLayoutHeight=tabLayout.getMeasuredHeight();
     }
@@ -74,6 +84,7 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         // 初始化菜单
         initTab();
+
 
 
     }
@@ -202,4 +213,26 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void success(UseInfoBean infoBean) {
+        LogUtils.logd("infoBean === " + infoBean.getUser().getHeadPic());
+        this.infoBean = infoBean.getUser();
+        //初始化frament
+        initFragment(bundle);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(String errMessage) {
+
+    }
 }

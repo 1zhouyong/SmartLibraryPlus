@@ -1,7 +1,7 @@
 package com.example.smartlibrary.contract;
 
 import com.example.smartlibrary.base.BaseView;
-import com.example.smartlibrary.bean.BaseObjectBean;
+import com.example.smartlibrary.bean.base.BaseObjectBean;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.RequestBody;

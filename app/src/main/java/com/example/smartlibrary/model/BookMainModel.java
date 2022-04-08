@@ -1,6 +1,6 @@
 package com.example.smartlibrary.model;
 
-import com.example.smartlibrary.bean.BaseArrayBean;
+import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.bean.BookTypeBean;
 import com.example.smartlibrary.contract.BookMainContract;
 import com.example.smartlibrary.net.RetrofitClient;

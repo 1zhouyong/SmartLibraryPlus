@@ -111,16 +111,6 @@ public class BookPageFragment extends BaseMvpFragment<BookMainPresenter> impleme
         animatorSet.setDuration(500);
         animatorSet.playTogether(valueAnimator,alpha);
         animatorSet.start();
-//        try {
-//            Thread.sleep(500);
-//            if (showOrHide){
-//                mainTab.setVisibility(View.VISIBLE);
-//            }else {
-//                mainTab.setVisibility(View.GONE);
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
 

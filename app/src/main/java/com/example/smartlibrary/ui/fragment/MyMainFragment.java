@@ -1,11 +1,12 @@
 package com.example.smartlibrary.ui.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -16,23 +17,34 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.app.BaseApplication;
-import com.example.smartlibrary.base.BaseFragment;
+import com.example.smartlibrary.base.BaseMvpFragment;
+import com.example.smartlibrary.contract.MyMainContract;
+import com.example.smartlibrary.presenter.MyMainPresenter;
+import com.example.smartlibrary.ui.activity.MainActivity;
 import com.example.smartlibrary.utils.LogUtils;
+import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.WaveView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import imageloader.libin.com.images.config.ScaleMode;
 import imageloader.libin.com.images.loader.ImageLoader;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /*
  * -----------------------------------------------------------------
@@ -51,7 +63,7 @@ import imageloader.libin.com.images.loader.ImageLoader;
  * 2022/3/23 : Create MyMainFragment.java
  * -----------------------------------------------------------------
  */
-public class MyMainFragment extends BaseFragment {
+public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements MyMainContract.View {
 
     @BindView(R.id.wave_view)
     WaveView waveView;
@@ -62,6 +74,9 @@ public class MyMainFragment extends BaseFragment {
 
     //调取系统摄像头的请求码
     private static final int MY_ADD_CASE_CALL_PHONE = 6;
+    private MyMainPresenter presenter;
+    private Uri mUri;
+    private List<MultipartBody.Part> parts;
 
     @Override
     protected void initView(View view) {
@@ -74,14 +89,19 @@ public class MyMainFragment extends BaseFragment {
                 imgLogo.setLayoutParams(lp);
             }
         });
-
+        MainActivity activity = (MainActivity) getActivity();
+        LogUtils.logd("changeImageUrl === " + activity.infoBean.getHeadPic());
         ImageLoader.with(getActivity())
-                .url("-&wd=&eqid=")
+                .url("file://"+activity.infoBean.getHeadPic())
                 .placeHolder(R.mipmap.ic_launcher_round)
                 .error(R.mipmap.ic_launcher_round)
                 .scale(ScaleMode.FIT_CENTER)
                 .asCircle()
                 .into(imgLogo);
+
+        presenter = new MyMainPresenter();
+        presenter.attachView(this);
+
 
     }
 
@@ -100,6 +120,50 @@ public class MyMainFragment extends BaseFragment {
         }
     }
 
+    // 拍照
+    private void takePhone() {
+        // 要保存的文件名
+        String time = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA).format(new Date());
+        String fileName = "photo_" + time;
+        // 创建一个文件夹
+        String path = Environment.getExternalStorageDirectory() + "/take_photo";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        // 要保存的图片文件
+        File imgFile = new File(file, fileName + ".jpeg");
+        // 将file转换成uri
+        // 注意7.0及以上与之前获取的uri不一样了，返回的是provider路径
+        mUri = getUriForFile(getActivity(), imgFile);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 添加Uri读取权限
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        // 或者
+//        grantUriPermission("com.rain.takephotodemo", mUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // 添加图片保存位置
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+        startActivityForResult(intent, 2);
+    }
+    // 从file中获取uri
+    // 7.0及以上使用的uri是contentProvider content://com.rain.takephotodemo.FileProvider/images/photo_20180824173621.jpg
+    // 6.0使用的uri为file:///storage/emulated/0/take_photo/photo_20180824171132.jpg
+    private static Uri getUriForFile(Context context, File file) {
+        if (context == null || file == null) {
+            throw new NullPointerException();
+        }
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context.getApplicationContext(), "com.rain.takephotodemo.FileProvider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
+    }
+
+
+
+
     private void showImgChooseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());//创建对话框
         View layout = getLayoutInflater().inflate(R.layout.dialog_select_photo, null);//获取自定义布局
@@ -114,23 +178,7 @@ public class MyMainFragment extends BaseFragment {
         takePhotoTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //"点击了照相";
-                //  6.0之后动态申请权限 摄像头调取权限,SD卡写入权限
-                //判断是否拥有权限，true则动态申请
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            MY_ADD_CASE_CALL_PHONE);
-                } else {
-                    try {
-                        //有权限,去打开摄像头
-                        takePhoto();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                dialog.dismiss();
+               takePhone();
             }
         });
 
@@ -138,19 +186,25 @@ public class MyMainFragment extends BaseFragment {
         choosePhotoTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //"点击了相册";
-                //  6.0之后动态申请权限 SD卡写入权限
-                if (ContextCompat.checkSelfPermission(BaseApplication.getAppContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            MY_ADD_CASE_CALL_PHONE2);
+                File outputImage = new File(Environment.getExternalStorageDirectory(),
+                        "output_image.jpg");
+                mUri = Uri.fromFile(outputImage);
 
-                } else {
-                    //打开相册
-                    choosePhoto();
+                try {
+                    if (outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                //此处调用了图片选择器
+                //如果直接写intent.setDataAndType("image/*");
+                //调用的是系统图库
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+                startActivityForResult(intent, 2);
                 dialog.dismiss();
             }
         });
@@ -162,51 +216,7 @@ public class MyMainFragment extends BaseFragment {
         });
     }
 
-    /**
-     * 打开相册
-     */
-    private void choosePhoto() {
-        //这是打开系统默认的相册(就是你系统怎么分类,就怎么显示,首先展示分类列表)
-        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(picture, 2);
-    }
 
-
-    private void takePhoto() throws IOException {
-        Intent intent = new Intent();
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 获取文件
-        File file = createFileIfNeed("UserIcon.png");
-        //拍照后原图回存入此路径下
-        Uri uri;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-            uri = Uri.fromFile(file);
-        } else {
-            /**
-             * 7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider
-             * 并且这样可以解决MIUI系统上拍照返回size为0的情况
-             */
-            uri = FileProvider.getUriForFile(getActivity(), "com.example.bobo.getphotodemo.fileprovider", file);
-        }
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-        startActivityForResult(intent, 1);
-    }
-
-    // 在sd卡中创建一保存图片（原图和缩略图共用的）文件夹
-    private File createFileIfNeed(String fileName) throws IOException {
-        String fileA = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/nbinpic";
-        File fileJA = new File(fileA);
-        LogUtils.logd("fileJA == "+ fileA);
-        if (!fileJA.exists()) {
-            fileJA.mkdirs();
-        }
-        File file = new File(fileA, fileName);
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        return file;
-    }
 
     /**
      * startActivityForResult执行后的回调方法，接收返回的图片
@@ -218,33 +228,89 @@ public class MyMainFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode != Activity.RESULT_CANCELED) {
-            String state = Environment.getExternalStorageState();
-            if (!state.equals(Environment.MEDIA_MOUNTED)) return;
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
+            //此处启动裁剪程序
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            //此处注释掉的部分是针对android 4.4路径修改的一个测试
+            //有兴趣的读者可以自己调试看看
+            intent.setDataAndType(data.getData(), "image/*");
+            intent.putExtra("scale", true);
+            //裁减比例1：1
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            //裁剪后图片大小
+            intent.putExtra("outputX", 200);
+            intent.putExtra("outputY", 200);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+            startActivityForResult(intent, 3);
+        }
 
-            LogUtils.logd("readpic == "+readpic());
-            // 把原图显示到界面上
-//            Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
-//            Tiny.getInstance().source(readpic()).asFile().withOptions(options).compress(new FileWithBitmapCallback() {
-//                @Override
-//                public void callback(boolean isSuccess, Bitmap bitmap, String outfile, Throwable t) {
-//                    saveImageToServer(bitmap, outfile);//显示图片到imgView上
-//                }
-//            });
-        } else if (requestCode == 2 && resultCode == Activity.RESULT_OK && null != data) {
+        if (requestCode == 3 && resultCode == Activity.RESULT_OK) {
+            try {
+                //将output_image.jpg对象解析成Bitmap对象，然后设置到ImageView中显示出来
+                Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver()
+                        .openInputStream(mUri));
+                imgLogo.setImageBitmap(bitmap);
+                String crop = saveImage("crop", bitmap);
+                if (crop != null) {
+                    File file = new File(crop);
+                    LogUtils.logd("bitmap == "+ file);
+                    if (file.exists()) {
+                        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);//表单类型
+                        MultipartBody.Builder builder = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM);//表单类型
+                        builder.addFormDataPart("headPic", file.getName(), requestFile);
+                        parts = builder.build().parts();
+                    }
+                }
+                String token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
+                presenter.uploadPic(token, "1", parts);
 
-            Uri selectedImage = data.getData();//获取路径
-            LogUtils.logd("selectedImage === " + selectedImage);
 
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    /**
-     * 从保存原图的地址读取图片
-     */
-    private String readpic() {
-        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/nbinpic/" + "UserIcon.png";
-        return filePath;
+    //保存图片
+    private String saveImage(String crop, Bitmap bitmap) {
+        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = crop + ".jpeg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(String errMessage) {
+
     }
 }
 

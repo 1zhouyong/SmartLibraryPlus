@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.base.BaseMvpActivity;
-import com.example.smartlibrary.bean.BaseObjectBean;
+import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.presenter.LoginPresenter;
 import com.example.smartlibrary.utils.ShareUtils;

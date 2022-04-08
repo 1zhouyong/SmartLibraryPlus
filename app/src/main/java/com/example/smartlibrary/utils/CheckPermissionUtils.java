@@ -71,11 +71,11 @@ public class CheckPermissionUtils {
                          * 判断用户是否点击了禁止后不再询问，AndPermission.hasAlwaysDeniedPermission(MainActivity.this, data)
                          * 如要引导用户跳转至应该权限设置页面，可用intent
                          */
-                        if (AndPermission.hasAlwaysDeniedPermission(context, data)) {
-                            //true，弹窗再次向用户索取权限
-                            GuidePermission();
-                            listener.onNotApply(context, data);
-                        }
+//                        if (AndPermission.hasAlwaysDeniedPermission(context, data)) {
+//                            //true，弹窗再次向用户索取权限
+//                            GuidePermission();
+//                            listener.onNotApply(context, data);
+//                        }
                     }
                 }).start();
     }

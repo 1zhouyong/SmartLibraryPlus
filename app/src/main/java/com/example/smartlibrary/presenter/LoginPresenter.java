@@ -3,7 +3,7 @@ package com.example.smartlibrary.presenter;
 import android.util.Log;
 
 import com.example.smartlibrary.base.BasePresenter;
-import com.example.smartlibrary.bean.BaseObjectBean;
+import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.model.LoginModel;
 import com.example.smartlibrary.net.RxScheduler;

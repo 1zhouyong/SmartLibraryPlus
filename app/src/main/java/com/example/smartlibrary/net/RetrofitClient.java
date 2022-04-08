@@ -51,11 +51,11 @@ public class RetrofitClient {
                 Request original = chain.request();
                 String token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
                 Request.Builder requestBuilder;
-                if ( token != null && !token.isEmpty()){
-                    requestBuilder = original.newBuilder().header("token",token);
-                }else {
+//                if ( token != null && !token.isEmpty()){
+//                    requestBuilder = original.newBuilder().header("token",token);
+//                }else {
                     requestBuilder = original.newBuilder();
-                }
+//                }
                 //添加Token
 //                        .header("token", "");
                 Request request = requestBuilder.build();

@@ -1,7 +1,7 @@
 package com.example.smartlibrary.presenter;
 
 import com.example.smartlibrary.base.BasePresenter;
-import com.example.smartlibrary.bean.BaseArrayBean;
+import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.bean.BookTypeBean;
 import com.example.smartlibrary.contract.BookMainContract;
 import com.example.smartlibrary.model.BookMainModel;

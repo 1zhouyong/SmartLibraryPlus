@@ -144,7 +144,7 @@ public class GuideActivity extends BaseActivity {
                 //记录进入引导页面
                 ShareUtils.putBoolean(GuideActivity.this, START_MAIN, true);
                 //跳转到主页面
-                startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                startActivity(new Intent(GuideActivity.this, LoginActivity.class));
 
                 finish();//关闭引导页面
             }
