@@ -1,18 +1,15 @@
 package com.example.smartlibrary.ui.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.base.BaseFragment;
+import com.example.smartlibrary.ui.activity.ReservationActivity;
 import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.widget.NormalTitleBar;
 
@@ -72,12 +69,16 @@ public class SeatsMainFragment extends BaseFragment {
 
     @OnClick({R.id.btn_today,R.id.btn_tomorrow})
     public void onViewClicked(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btn_today:
-
+                bundle.putString("date","1");
                 break;
-
+            case R.id.btn_tomorrow:
+                bundle.putString("date","2");
+                break;
         }
+        startActivity(ReservationActivity.class,bundle);
     }
 
 

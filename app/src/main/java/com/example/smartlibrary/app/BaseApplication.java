@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import com.example.smartlibrary.BuildConfig;
 import com.example.smartlibrary.adapter.channel.ChannelBean;
 import com.example.smartlibrary.utils.LogUtils;
-import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.utils.ShareUtils;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class BaseApplication extends Application {
         // 初始化Imageloader
         ImageLoader.init(getApplicationContext());
 
-        PublicTools.changeImageUrl("D:\\\\tmp\\\\libary\\\\web\\\\src\\\\main\\\\resources\\\\static\\\\bookpic\\\\1.png");
+
     }
 
     private void initChannel() {

@@ -7,7 +7,7 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class mapToRequestBodyUtil {
+public class MapToRequestBodyUtil {
     /**
      * 将map数据转换为 普通的 json RequestBody
      * @param map 以前的请求参数

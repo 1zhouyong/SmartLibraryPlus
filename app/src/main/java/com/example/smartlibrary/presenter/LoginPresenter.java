@@ -7,7 +7,7 @@ import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.LoginContract;
 import com.example.smartlibrary.model.LoginModel;
 import com.example.smartlibrary.net.RxScheduler;
-import com.example.smartlibrary.utils.mapToRequestBodyUtil;
+import com.example.smartlibrary.utils.MapToRequestBodyUtil;
 
 import java.util.HashMap;
 
@@ -29,7 +29,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         HashMap<String, String> map = new HashMap<>();
         map.put("studyId",username);
         map.put("password",password);
-        model.login(mapToRequestBodyUtil.convertMapToBody(map))
+        model.login(MapToRequestBodyUtil.convertMapToBody(map))
                 .compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())//解决内存泄漏
                 .subscribe(new Observer<BaseObjectBean<String>>() {

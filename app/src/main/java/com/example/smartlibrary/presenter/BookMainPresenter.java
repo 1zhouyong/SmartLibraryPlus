@@ -6,7 +6,7 @@ import com.example.smartlibrary.bean.BookTypeBean;
 import com.example.smartlibrary.contract.BookMainContract;
 import com.example.smartlibrary.model.BookMainModel;
 import com.example.smartlibrary.net.RxScheduler;
-import com.example.smartlibrary.utils.mapToRequestBodyUtil;
+import com.example.smartlibrary.utils.MapToRequestBodyUtil;
 
 import java.util.HashMap;
 
@@ -27,7 +27,7 @@ public class BookMainPresenter extends BasePresenter<BookMainContract.View> impl
     public void selectBook(String bookType) {
         HashMap<String, String> map = new HashMap<>();
         map.put("bookType",bookType);
-        Observable<BaseArrayBean<BookTypeBean>> observable = model.bookSelect(mapToRequestBodyUtil.convertMapToBody(map));
+        Observable<BaseArrayBean<BookTypeBean>> observable = model.bookSelect(MapToRequestBodyUtil.convertMapToBody(map));
         observable.compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new Observer<BaseArrayBean<BookTypeBean>>() {
