@@ -71,6 +71,9 @@ dependencies {
     //添加AndPermission依赖
     implementation 'com.yanzhenjie:permission:2.0.3'
 
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+
 
 
 }

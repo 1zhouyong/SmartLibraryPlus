@@ -20,8 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".demo.DemoActivity"></activity>
-        <!-- 解决安卓10无法往手机写文件 -->
+        <activity android:name=".ui.activity.ReservationActivity"></activity>
+        <activity android:name=".demo.DemoActivity" /> <!-- 解决安卓10无法往手机写文件 -->
         <activity android:name=".ui.activity.BookInfoActivity" />
         <activity android:name=".ui.activity.BookTypeChooseActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
@@ -48,10 +48,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
-
-
     </application>
 
 </manifest>

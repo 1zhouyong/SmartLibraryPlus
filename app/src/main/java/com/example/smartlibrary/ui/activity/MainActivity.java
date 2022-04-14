@@ -57,18 +57,13 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private MyMainFragment myMainFragment;
     private static int tabLayoutHeight;
     public UseInfoBean.UserBean infoBean;
-    private Bundle bundle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = savedInstanceState;
-        // 初始化用户信息
-        MainPresenter mainPresenter = new MainPresenter();
-        mainPresenter.attachView(this);
-        mainPresenter.getInfo(ShareUtils.getString(BaseApplication.getAppContext(), "token", ""));
-
+        //初始化frament
+        initFragment(savedInstanceState);
         tabLayout.measure(0,0);
         tabLayoutHeight=tabLayout.getMeasuredHeight();
     }
@@ -89,33 +84,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
     }
 
-    /**
-     * 菜单显示隐藏动画
-     * @param showOrHide
-     */
-    private void startAnimation(boolean showOrHide){
-        final ViewGroup.LayoutParams layoutParams = tabLayout.getLayoutParams();
-        ValueAnimator valueAnimator;
-        ObjectAnimator alpha;
-        if(!showOrHide){
-            valueAnimator = ValueAnimator.ofInt(tabLayoutHeight, 0);
-            alpha = ObjectAnimator.ofFloat(tabLayout, "alpha", 1, 0);
-        }else{
-            valueAnimator = ValueAnimator.ofInt(0, tabLayoutHeight);
-            alpha = ObjectAnimator.ofFloat(tabLayout, "alpha", 0, 1);
-        }
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                layoutParams.height= (int) valueAnimator.getAnimatedValue();
-                tabLayout.setLayoutParams(layoutParams);
-            }
-        });
-        AnimatorSet animatorSet=new AnimatorSet();
-        animatorSet.setDuration(500);
-        animatorSet.playTogether(valueAnimator,alpha);
-        animatorSet.start();
-    }
 
 
     private void initTab() {
@@ -164,6 +132,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private void SwitchTo(int position) {
         LogUtils.logd("主页菜单position" + position);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        LogUtils.logd("transaction === " + transaction);
         switch (position) {
             //图书馆
             case 0:
@@ -217,8 +186,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     public void success(UseInfoBean infoBean) {
         LogUtils.logd("infoBean === " + infoBean.getUser().getHeadPic());
         this.infoBean = infoBean.getUser();
-        //初始化frament
-        initFragment(bundle);
+
     }
 
     @Override

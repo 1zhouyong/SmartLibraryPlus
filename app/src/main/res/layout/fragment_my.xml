@@ -12,7 +12,7 @@
         android:background="@color/main_color">
         <TextView
             android:layout_width="match_parent"
-            android:text="我关注的"
+            android:text="我的"
             android:textColor="@color/white"
             android:layout_gravity="center|top"
             android:gravity="center"
@@ -24,10 +24,10 @@
             android:layout_height="15dp"
             android:layout_gravity="bottom" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_logo"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             />
     </FrameLayout>

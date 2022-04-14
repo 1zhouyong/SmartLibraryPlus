@@ -3,6 +3,7 @@ package com.example.smartlibrary.utils;
 import com.example.smartlibrary.app.AppConstant;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class PublicTools {
@@ -26,4 +27,13 @@ public class PublicTools {
         String format = sdf.format(date);
         return format;
     }
+
+    public static String getNowDay(int i){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, i);//-1.昨天时间 0.当前时间 1.明天时间 *以此类推
+        String time = sdf.format(c.getTime());
+        return time;
+    }
+
 }

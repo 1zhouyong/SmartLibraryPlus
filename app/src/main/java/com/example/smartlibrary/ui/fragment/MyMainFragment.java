@@ -40,6 +40,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import imageloader.libin.com.images.config.ScaleMode;
 import imageloader.libin.com.images.loader.ImageLoader;
 import okhttp3.MediaType;
@@ -68,7 +69,7 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
     @BindView(R.id.wave_view)
     WaveView waveView;
     @BindView(R.id.img_logo)
-    ImageView imgLogo;
+    CircleImageView imgLogo;
     //打开相册的请求码
     private static final int MY_ADD_CASE_CALL_PHONE2 = 7;
 
@@ -89,15 +90,25 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
                 imgLogo.setLayoutParams(lp);
             }
         });
-        MainActivity activity = (MainActivity) getActivity();
-        LogUtils.logd("changeImageUrl === " + activity.infoBean.getHeadPic());
-        ImageLoader.with(getActivity())
-                .url("file://"+activity.infoBean.getHeadPic())
-                .placeHolder(R.mipmap.ic_launcher_round)
-                .error(R.mipmap.ic_launcher_round)
-                .scale(ScaleMode.FIT_CENTER)
-                .asCircle()
-                .into(imgLogo);
+//        MainActivity activity = (MainActivity) getActivity();
+//        ImageLoader.with(getActivity())
+//                .url("file:///storage/emulated/0/output_image.jpg")
+//                .placeHolder(R.mipmap.ic_launcher_round)
+//                .error(R.mipmap.ic_launcher_round)
+//                .scale(ScaleMode.FIT_CENTER)
+//                .asCircle()
+//                .into(imgLogo);
+
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver()
+                    .openInputStream(Uri.parse("file:///storage/emulated/0/output_image.jpg")));
+            LogUtils.logd("mUri == " + mUri);
+            imgLogo.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         presenter = new MyMainPresenter();
         presenter.attachView(this);
@@ -250,6 +261,7 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
                 //将output_image.jpg对象解析成Bitmap对象，然后设置到ImageView中显示出来
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver()
                         .openInputStream(mUri));
+                LogUtils.logd("mUri == " + mUri);
                 imgLogo.setImageBitmap(bitmap);
                 String crop = saveImage("crop", bitmap);
                 if (crop != null) {
