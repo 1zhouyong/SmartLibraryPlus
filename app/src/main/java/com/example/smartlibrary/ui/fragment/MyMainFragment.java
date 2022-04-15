@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
@@ -70,6 +71,8 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
     WaveView waveView;
     @BindView(R.id.img_logo)
     CircleImageView imgLogo;
+    @BindView(R.id.ll_user_info)
+    LinearLayout llUserInfo;
     //打开相册的请求码
     private static final int MY_ADD_CASE_CALL_PHONE2 = 7;
 
@@ -126,6 +129,9 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
         switch (v.getId()) {
             case R.id.img_logo:
                 showImgChooseDialog();
+                break;
+            case R.id.ll_user_info:
+
                 break;
 
         }
