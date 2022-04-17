@@ -36,4 +36,12 @@ public class PublicTools {
         return time;
     }
 
+    public static String getNowDay1(int i){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, i);//-1.昨天时间 0.当前时间 1.明天时间 *以此类推
+        String time = sdf.format(c.getTime());
+        return time;
+    }
+
 }

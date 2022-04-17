@@ -18,12 +18,12 @@
         android:id="@+id/ll_portrait"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ri_portrait"
+            android:id="@+id/civ_pic"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="15dp"
@@ -31,9 +31,10 @@
             android:src="@mipmap/default_header"/>
 
         <TextView
+            android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改头像"
+            android:text="201833100013"
             android:textColor="@color/gray3"
             android:layout_gravity="center"
             android:paddingLeft="15dp"/>
@@ -41,44 +42,78 @@
     </LinearLayout>
     <!--    编辑界面，此处可以写成一个ItemGroup上传至com上-->
     <com.example.smartlibrary.widget.ItemGroup
-        android:id="@+id/ig_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:jt_visible="false"
-        app:paddingLeft="15dp"
-        app:title="ID号" />
-
-    <com.example.smartlibrary.widget.ItemGroup
         android:id="@+id/ig_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:edt_hint_content="修改昵称"
         app:paddingLeft="15dp"
-        app:title="昵称" />
+        app:edt_hint_content="未选择"
+        app:title="姓名" />
 
     <com.example.smartlibrary.widget.ItemGroup
-        android:id="@+id/ig_gender"
+        android:id="@+id/ig_identity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:edt_hint_content="性别"
         app:paddingLeft="15dp"
-        app:title="性别"/>
+        app:edt_hint_content="未选择"
+        app:title="身份证" />
+
 
     <com.example.smartlibrary.widget.ItemGroup
-        android:id="@+id/ig_region"
+        android:id="@+id/ig_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="未选择"
+        app:paddingLeft="15dp"
+        app:title="性别" />
+
+    <com.example.smartlibrary.widget.ItemGroup
+        android:id="@+id/ig_age"
+        android:layout_width="match_parent"
+        app:edt_hint_content="未选择"
+        android:layout_height="wrap_content"
+        app:paddingLeft="15dp"
+        app:title="年龄" />
+
+
+
+    <com.example.smartlibrary.widget.ItemGroup
+        android:id="@+id/ig_tel"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         app:edt_hint_content="未选择"
         app:paddingLeft="15dp"
-        app:title="常住地" />
+        app:title="手机号码" />
 
     <com.example.smartlibrary.widget.ItemGroup
-        android:id="@+id/ig_brithday"
+        android:id="@+id/ig_school"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:edt_hint_content="未选择"
+        app:paddingLeft="15dp"
+        app:title="学校" />
+
+    <com.example.smartlibrary.widget.ItemGroup
+        android:id="@+id/ig_birth"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         app:edt_hint_content="未选择"
         app:paddingLeft="15dp"
         app:title="生日" />
 
+    <com.example.smartlibrary.widget.ItemGroup
+        android:id="@+id/ig_class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:paddingLeft="15dp"
+        app:edt_hint_content="未选择"
+        app:title="班级" />
+
+    <com.example.smartlibrary.widget.ItemGroup
+        android:id="@+id/ig_address"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:edt_hint_content="未选择"
+        app:paddingLeft="15dp"
+        app:title="家庭住址" />
 
 </LinearLayout>

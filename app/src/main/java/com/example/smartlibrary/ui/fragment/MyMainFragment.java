@@ -9,12 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +26,7 @@ import com.example.smartlibrary.base.BaseMvpFragment;
 import com.example.smartlibrary.contract.MyMainContract;
 import com.example.smartlibrary.presenter.MyMainPresenter;
 import com.example.smartlibrary.ui.activity.MainActivity;
+import com.example.smartlibrary.ui.activity.UserInfoActivity;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.WaveView;
@@ -42,8 +43,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import imageloader.libin.com.images.config.ScaleMode;
-import imageloader.libin.com.images.loader.ImageLoader;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -81,6 +80,7 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
     private MyMainPresenter presenter;
     private Uri mUri;
     private List<MultipartBody.Part> parts;
+    private MainActivity activity;
 
     @Override
     protected void initView(View view) {
@@ -93,7 +93,7 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
                 imgLogo.setLayoutParams(lp);
             }
         });
-//        MainActivity activity = (MainActivity) getActivity();
+        activity = (MainActivity) getActivity();
 //        ImageLoader.with(getActivity())
 //                .url("file:///storage/emulated/0/output_image.jpg")
 //                .placeHolder(R.mipmap.ic_launcher_round)
@@ -106,8 +106,10 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
         try {
             bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver()
                     .openInputStream(Uri.parse("file:///storage/emulated/0/output_image.jpg")));
-            LogUtils.logd("mUri == " + mUri);
-            imgLogo.setImageBitmap(bitmap);
+            LogUtils.logd("mUri == " + bitmap);
+            if (bitmap != null){
+                imgLogo.setImageBitmap(bitmap);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -124,14 +126,16 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.img_logo})
+    @OnClick({R.id.img_logo,R.id.ll_user_info})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.img_logo:
                 showImgChooseDialog();
                 break;
             case R.id.ll_user_info:
-
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("UserInfo",activity.infoBean);
+                startActivity(UserInfoActivity.class, bundle );
                 break;
 
         }

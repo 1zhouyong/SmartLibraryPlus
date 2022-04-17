@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.base.BaseFragment;
+import com.example.smartlibrary.ui.activity.MainActivity;
 import com.example.smartlibrary.ui.activity.ReservationActivity;
 import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.widget.NormalTitleBar;
@@ -46,11 +47,12 @@ public class SeatsMainFragment extends BaseFragment {
     Button btnToday;
     @BindView(R.id.btn_tomorrow)
     Button btnTomorrow;
+    private MainActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        activity = (MainActivity) getActivity();
     }
 
     @Override
@@ -72,10 +74,13 @@ public class SeatsMainFragment extends BaseFragment {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btn_today:
-                bundle.putString("date","1");
+                bundle.putString("date",String.valueOf(0));
+                bundle.putString("userId",String.valueOf(activity.infoBean.getId()));
                 break;
             case R.id.btn_tomorrow:
-                bundle.putString("date","2");
+                bundle.putString("date",String.valueOf(1));
+                bundle.putString("userId",String.valueOf(activity.infoBean.getId()));
+
                 break;
         }
         startActivity(ReservationActivity.class,bundle);

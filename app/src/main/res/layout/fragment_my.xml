@@ -27,6 +27,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_logo"
             android:layout_width="60dp"
+            android:src="@mipmap/default_header"
             android:layout_height="60dp"
             android:layout_gravity="center"
             />

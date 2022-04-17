@@ -1,10 +1,6 @@
 package com.example.smartlibrary.ui.activity;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -57,6 +53,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private MyMainFragment myMainFragment;
     private static int tabLayoutHeight;
     public UseInfoBean.UserBean infoBean;
+    private MainPresenter presenter;
 
 
     @Override
@@ -66,6 +63,9 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         initFragment(savedInstanceState);
         tabLayout.measure(0,0);
         tabLayoutHeight=tabLayout.getMeasuredHeight();
+        presenter = new MainPresenter();
+        presenter.attachView(this);
+        presenter.getInfo(ShareUtils.getString(BaseApplication.getAppContext(), "token", ""));
     }
 
 

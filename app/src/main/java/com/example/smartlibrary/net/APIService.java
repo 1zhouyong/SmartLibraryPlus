@@ -71,4 +71,7 @@ public interface APIService {
     @POST("seat/listByCondition")
     Observable<BaseArrayBean<SeatListBean>> getSeatList(@Header("Login-Pass")String token,@Body RequestBody body);
 
+    @POST("seat/orderSeat")
+    Observable<BaseObjectBean<Boolean>> orderSeat(@Header("Login-Pass")String token,@Body RequestBody body);
+
 }

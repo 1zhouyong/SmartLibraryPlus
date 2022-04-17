@@ -3,11 +3,11 @@ package com.example.smartlibrary.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
 import com.example.smartlibrary.R;
+import com.example.smartlibrary.adapter.SeatPageAdapter;
 import com.example.smartlibrary.app.BaseApplication;
 import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.SeatListBean;
@@ -15,6 +15,7 @@ import com.example.smartlibrary.contract.ReservationContract;
 import com.example.smartlibrary.presenter.ReservationPresenter;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.MapToRequestBodyUtil;
+import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.CustomSpinner;
 
@@ -25,7 +26,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> implements ReservationContract.View, CustomSpinner.OnSpinnerItemClickListener {
+public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> implements ReservationContract.View,
+        CustomSpinner.OnSpinnerItemClickListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     private ReservationPresenter presenter;
@@ -39,11 +41,19 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     GridView gridViewSeat;
     @BindView(R.id.btn_reservation)
     Button btnReservation;
+    private SeatPageAdapter adapter;
+    private int currentClickItem = -1;
+    private String classroom[];
+    private List<String> seatStatusList = new ArrayList<>();
+    private List<SeatListBean> seatList = new ArrayList<>();
+    private String userId;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dateType = getIntent().getExtras().getString("date");
+        userId = getIntent().getExtras().getString("userId");
         presenter = new ReservationPresenter();
         presenter.attachView(this);
         getSeatByCondition(dateType, "一楼-101");
@@ -56,15 +66,19 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
 
     @Override
     public void initView() {
+        gridViewSeat.setOnItemClickListener(this);
         initDataResouce();
         initCustomSpinner();
-
+        adapter = new SeatPageAdapter(this, seatStatusList);
+        gridViewSeat.setAdapter(adapter);
+        btnReservation.setOnClickListener(this);
     }
 
     private void initDataResouce() {
+        classroom = getResources().getStringArray(R.array.classroom);
         mDataResouce = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            mDataResouce.add(getResources().getStringArray(R.array.classroom)[i]);
+            mDataResouce.add(classroom[i]);
         }
     }
 
@@ -82,16 +96,33 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
 
     private void getSeatByCondition(String dateType, String place) {
         Map<String, String> map = new HashMap<>();
-        map.put("date", dateType);
+        map.put("date", PublicTools.getNowDay1(Integer.parseInt(dateType)));
         map.put("place", place);
-        String token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
+        token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
         presenter.getSeatList(token, MapToRequestBodyUtil.convertMapToBody(map));
     }
 
 
     @Override
     public void success(List<SeatListBean> list) {
-        LogUtils.logd("SeatListBean.size == " +list.size());
+        seatList.clear();
+        seatList.addAll(list);
+        LogUtils.logd("place === " + list.get(0).getPlace());
+        for (int i = 0; i < list.size(); i++) {
+            seatStatusList.add(list.get(i).getStatus());
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void orderSeatSuccess(Boolean isSuccess) {
+        if (isSuccess){
+            showLongToast("预约成功");
+            seatList.get(currentClickItem).setStatus("1");
+        }else {
+            showLongToast("预约失败");
+        }
+
     }
 
 
@@ -112,5 +143,46 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     @Override
     public void OnSpinnerItemClick(AdapterView<?> parent, View view, int position, long id) {
         LogUtils.logd("position === " + position);
+        getSeatByCondition(dateType, classroom[position]);
+        seatStatusList.clear();
+        resetClick();
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        btnReservation.setEnabled(true);
+        if (!seatStatusList.get(i).equals("1")){
+            resetClick();
+            currentClickItem = i;
+            seatStatusList.set(i,"1");
+            adapter.notifyDataSetChanged();
+        }else {
+            showLongToast("该座位已预约");
+        }
+    }
+
+    private void resetClick(){
+        seatStatusList.clear();
+        for (int j = 0; j < seatList.size(); j++) {
+            seatStatusList.add(seatList.get(j).getStatus());
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
+        map.put("id",String.valueOf((currentClickItem + 1)));
+        map.put("userId",userId);
+
+        presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

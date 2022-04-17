@@ -1,5 +1,7 @@
 package com.example.smartlibrary.bean;
 
+import java.io.Serializable;
+
 public class UseInfoBean {
 
     /**
@@ -16,7 +18,7 @@ public class UseInfoBean {
         this.user = user;
     }
 
-    public static class UserBean {
+    public static class UserBean implements Serializable {
         /**
          * id : 1
          * studyId : 1904011011
@@ -47,16 +49,16 @@ public class UseInfoBean {
         private String name;
         private String identity;
         private String type;
-        private Object classes;
-        private Object instructor;
+        private String classes;
+        private String instructor;
         private String headPic;
-        private Object headPicture;
-        private Object phone;
-        private Object age;
-        private Object sex;
+        private String headPicture;
+        private String phone;
+        private String age;
+        private String sex;
         private String descb;
-        private Object intake;
-        private Object address;
+        private String intake;
+        private String address;
         private String deleteFlag;
         private String createdBy;
         private String createdAt;
@@ -111,19 +113,19 @@ public class UseInfoBean {
             this.type = type;
         }
 
-        public Object getClasses() {
+        public String getClasses() {
             return classes;
         }
 
-        public void setClasses(Object classes) {
+        public void setClasses(String classes) {
             this.classes = classes;
         }
 
-        public Object getInstructor() {
+        public String getInstructor() {
             return instructor;
         }
 
-        public void setInstructor(Object instructor) {
+        public void setInstructor(String instructor) {
             this.instructor = instructor;
         }
 
@@ -135,35 +137,35 @@ public class UseInfoBean {
             this.headPic = headPic;
         }
 
-        public Object getHeadPicture() {
+        public String getHeadPicture() {
             return headPicture;
         }
 
-        public void setHeadPicture(Object headPicture) {
+        public void setHeadPicture(String headPicture) {
             this.headPicture = headPicture;
         }
 
-        public Object getPhone() {
+        public String getPhone() {
             return phone;
         }
 
-        public void setPhone(Object phone) {
+        public void setPhone(String phone) {
             this.phone = phone;
         }
 
-        public Object getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(Object age) {
+        public void setAge(String age) {
             this.age = age;
         }
 
-        public Object getSex() {
+        public String getSex() {
             return sex;
         }
 
-        public void setSex(Object sex) {
+        public void setSex(String sex) {
             this.sex = sex;
         }
 
@@ -175,19 +177,19 @@ public class UseInfoBean {
             this.descb = descb;
         }
 
-        public Object getIntake() {
+        public String getIntake() {
             return intake;
         }
 
-        public void setIntake(Object intake) {
+        public void setIntake(String intake) {
             this.intake = intake;
         }
 
-        public Object getAddress() {
+        public String getAddress() {
             return address;
         }
 
-        public void setAddress(Object address) {
+        public void setAddress(String address) {
             this.address = address;
         }
 
