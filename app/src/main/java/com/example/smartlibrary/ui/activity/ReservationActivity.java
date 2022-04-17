@@ -43,6 +43,7 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     Button btnReservation;
     private SeatPageAdapter adapter;
     private int currentClickItem = -1;
+    private int currentClassItem = 0;
     private String classroom[];
     private List<String> seatStatusList = new ArrayList<>();
     private List<SeatListBean> seatList = new ArrayList<>();
@@ -77,7 +78,7 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     private void initDataResouce() {
         classroom = getResources().getStringArray(R.array.classroom);
         mDataResouce = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 16; i++) {
             mDataResouce.add(classroom[i]);
         }
     }
@@ -108,9 +109,7 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
         seatList.clear();
         seatList.addAll(list);
         LogUtils.logd("place === " + list.get(0).getPlace());
-        for (int i = 0; i < list.size(); i++) {
-            seatStatusList.add(list.get(i).getStatus());
-        }
+        resetClick();
         adapter.notifyDataSetChanged();
     }
 
@@ -118,7 +117,8 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     public void orderSeatSuccess(Boolean isSuccess) {
         if (isSuccess){
             showLongToast("预约成功");
-            seatList.get(currentClickItem).setStatus("1");
+            LogUtils.logd("currentClickItem == " + currentClickItem);
+            seatList.get(currentClickItem % 30).setStatus("1");
         }else {
             showLongToast("预约失败");
         }
@@ -143,23 +143,20 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     @Override
     public void OnSpinnerItemClick(AdapterView<?> parent, View view, int position, long id) {
         LogUtils.logd("position === " + position);
+        currentClassItem = position * 30;
         getSeatByCondition(dateType, classroom[position]);
-        seatStatusList.clear();
-        resetClick();
-        adapter.notifyDataSetChanged();
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         btnReservation.setEnabled(true);
+        LogUtils.logd("onItemClick === "+ seatStatusList.get(i).equals("1"));
         if (!seatStatusList.get(i).equals("1")){
             resetClick();
-            currentClickItem = i;
+            currentClickItem = i+1 + currentClassItem;
+            LogUtils.logd("currentClickItem -- "+ currentClickItem);
             seatStatusList.set(i,"1");
             adapter.notifyDataSetChanged();
-        }else {
-            showLongToast("该座位已预约");
         }
     }
 
@@ -174,7 +171,7 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     public void onClick(View view) {
         HashMap<String, String> map = new HashMap<>();
         map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
-        map.put("id",String.valueOf((currentClickItem + 1)));
+        map.put("id",String.valueOf((currentClickItem)));
         map.put("userId",userId);
 
         presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));

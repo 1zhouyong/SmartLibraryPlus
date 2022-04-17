@@ -1,16 +1,10 @@
 package com.example.smartlibrary.ui.fragment;
 
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.smartlibrary.R;
+import com.example.smartlibrary.base.BaseFragment;
 
 /*
  * -----------------------------------------------------------------
@@ -29,12 +23,16 @@ import com.example.smartlibrary.R;
  * 2022/3/23 : Create LecturesMainFragment.java
  * -----------------------------------------------------------------
  */
-public class LecturesMainFragment extends Fragment {
+public class LecturesMainFragment extends BaseFragment {
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lecture, container, false);
-        return view;
+    protected void initView(View view) {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_lecture;
     }
 }

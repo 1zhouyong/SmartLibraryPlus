@@ -18,12 +18,16 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.smartlibrary.R;
-import com.example.smartlibrary.base.BaseActivity;
+import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.CityBean;
 import com.example.smartlibrary.bean.ProvinceBean;
 import com.example.smartlibrary.bean.UseInfoBean;
+import com.example.smartlibrary.contract.UserInfoContract;
+import com.example.smartlibrary.presenter.UserInfoPresenter;
 import com.example.smartlibrary.utils.LogUtils;
+import com.example.smartlibrary.utils.MapToRequestBodyUtil;
 import com.example.smartlibrary.utils.PublicTools;
+import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.ItemGroup;
 import com.example.smartlibrary.widget.NormalTitleBar;
 import com.google.gson.Gson;
@@ -35,12 +39,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserInfoActivity extends BaseActivity  {
+public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoContract.View {
 
     private static final int EDIT_NAME = 1;
     private static final int EDIT_IDENTITY = 2;
@@ -79,12 +85,17 @@ public class UserInfoActivity extends BaseActivity  {
     private ArrayList<String> optionsItems_gender = new ArrayList<>();
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private UserInfoPresenter presenter;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = new Intent(this,UpdateInfoActivity.class);
         initOptionData();
+        presenter = new UserInfoPresenter();
+        presenter.attachView(this);
+        token = ShareUtils.getString(this, "token", "");
 
     }
 
@@ -110,19 +121,20 @@ public class UserInfoActivity extends BaseActivity  {
         if (userInfo != null){
             tvId.setText(userInfo.getStudyId());
             igName.getContentEdt().setText(userInfo.getName());
-            igIdentity.getContentEdt().setText("");
             igSex.getContentEdt().setText(userInfo.getSex());
-            igAge.getContentEdt().setText("");
             igTel.getContentEdt().setText(userInfo.getPhone());
-            igSchool.getContentEdt().setText("");
             igBirth.getContentEdt().setText(userInfo.getDescb());
             igClass.getContentEdt().setText(userInfo.getClasses());
             igAddress.getContentEdt().setText(userInfo.getAddress());
-
         }
+        igSchool.getContentEdt().setText(ShareUtils.getString(this,"school" ));
+        igAge.getContentEdt().setText(ShareUtils.getString(this,"age" ));
+        igIdentity.getContentEdt().setText(ShareUtils.getString(this,"identity" ));
+
 
 
         ntb.setRightTitle("保存");
+        ntb.setTitleText("个人信息");
         ntb.setRightTitleVisibility(true);
         ntb.setOnRightTextListener(new View.OnClickListener() {
             @Override
@@ -133,6 +145,7 @@ public class UserInfoActivity extends BaseActivity  {
         ntb.setOnBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
@@ -189,8 +202,17 @@ public class UserInfoActivity extends BaseActivity  {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //选择了则显示并暂存LoginUser，退出时在保存至数据库
-                String tx = options1Items.get(options1).getPickerViewText()
-                        + options2Items.get(options1).get(options2);
+                String tx;
+                LogUtils.logd("options1Items == " + options1Items.size()
+                +",options2Items == " + options2Items.size()+",options1 == " + options1
+                +",options2 == " + options2);
+                if (options2Items.get(options1).size() != 0){
+                    tx = options1Items.get(options1).getPickerViewText()
+                            + options2Items.get(options1).get(options2);
+                }else {
+                    tx = options1Items.get(options1).getPickerViewText();
+                }
+
                 igAddress.getContentEdt().setText(tx);
 
             }
@@ -280,12 +302,70 @@ public class UserInfoActivity extends BaseActivity  {
         if (resultCode == RESULT_OK){
             if (requestCode == EDIT_NAME){
                 igName.getContentEdt().setText(data.getStringExtra("updateinfo"));
+            }else if (requestCode == EDIT_IDENTITY){
+                igIdentity.getContentEdt().setText(data.getStringExtra("updateinfo"));
+            }else if (requestCode == EDIT_AGE){
+                igAge.getContentEdt().setText(data.getStringExtra("updateinfo"));
+            }else if (requestCode == EDIT_CLASS){
+                igClass.getContentEdt().setText(data.getStringExtra("updateinfo"));
+            }else if (requestCode == EDIT_SCHOOL){
+                igSchool.getContentEdt().setText(data.getStringExtra("updateinfo"));
+            }else if (requestCode == EDIT_TEL){
+                igTel.getContentEdt().setText(data.getStringExtra("updateinfo"));
             }
+
         }
 
     }
 
     private void saveInfo() {
+        Map<String,String> map = new HashMap<>();
+        map.put("address",
+                igAddress.getContentEdt().getText().toString().isEmpty()?userInfo.getAddress():igAddress.getContentEdt().getText().toString());
+        map.put("classes",
+                igClass.getContentEdt().getText().toString().isEmpty()?userInfo.getClasses():igClass.getContentEdt().getText().toString());
+        map.put("descb",
+                igBirth.getContentEdt().getText().toString().isEmpty()?userInfo.getDescb():igBirth.getContentEdt().getText().toString());
+        map.put("id", userInfo.getId()+"");
+        map.put("name",
+                igName.getContentEdt().getText().toString().isEmpty()?userInfo.getName():igName.getContentEdt().getText().toString());
+        map.put("operator",userInfo.getStudyId());
+        map.put("phone",
+                igTel.getContentEdt().getText().toString().isEmpty()?userInfo.getPhone():igTel.getContentEdt().getText().toString());
+        map.put("sex",
+                igSex.getContentEdt().getText().toString().isEmpty()?userInfo.getSex():igSex.getContentEdt().getText().toString());
+
+
+
+
+
+        presenter.updateInfo(token, MapToRequestBodyUtil.convertMapToBody(map));
+
+    }
+
+    @Override
+    public void updateInfoSuccess(boolean isSuccess) {
+        if (isSuccess){
+            showLongToast("修改成功");
+            ShareUtils.putString(this,"school",igSchool.getContentEdt().getText().toString());
+            ShareUtils.putString(this,"age",igAge.getContentEdt().getText().toString());
+            ShareUtils.putString(this,"identity",igIdentity.getContentEdt().getText().toString());
+
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(String errMessage) {
 
     }
 }

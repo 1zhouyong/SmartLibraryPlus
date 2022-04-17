@@ -54,6 +54,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private static int tabLayoutHeight;
     public UseInfoBean.UserBean infoBean;
     private MainPresenter presenter;
+    private String token;
 
 
     @Override
@@ -65,7 +66,8 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         tabLayoutHeight=tabLayout.getMeasuredHeight();
         presenter = new MainPresenter();
         presenter.attachView(this);
-        presenter.getInfo(ShareUtils.getString(BaseApplication.getAppContext(), "token", ""));
+        token = ShareUtils.getString(BaseApplication.getAppContext(), "token");
+        presenter.getInfo(token);
     }
 
 
@@ -202,5 +204,12 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     @Override
     public void onError(String errMessage) {
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LogUtils.logd("onRestart");
+        presenter.getInfo(token);
     }
 }

@@ -74,4 +74,6 @@ public interface APIService {
     @POST("seat/orderSeat")
     Observable<BaseObjectBean<Boolean>> orderSeat(@Header("Login-Pass")String token,@Body RequestBody body);
 
+    @POST("user/modifyUser")
+    Observable<BaseObjectBean<Boolean>> updateInfo(@Header("Login-Pass")String token,@Body RequestBody body);
 }
