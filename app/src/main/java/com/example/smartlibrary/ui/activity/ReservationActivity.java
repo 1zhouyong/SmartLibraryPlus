@@ -11,7 +11,7 @@ import com.example.smartlibrary.adapter.SeatPageAdapter;
 import com.example.smartlibrary.app.BaseApplication;
 import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.SeatListBean;
-import com.example.smartlibrary.contract.ReservationContract;
+import com.example.smartlibrary.contract.SeatMainContract;
 import com.example.smartlibrary.presenter.ReservationPresenter;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.MapToRequestBodyUtil;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> implements ReservationContract.View,
+public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> implements SeatMainContract.View,
         CustomSpinner.OnSpinnerItemClickListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
 

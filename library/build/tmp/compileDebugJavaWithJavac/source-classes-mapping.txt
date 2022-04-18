@@ -1,0 +1,55 @@
+it/gmariotti/recyclerview/itemanimator/BaseItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$2
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$3
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$4
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$5
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$6
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$ChangeInfo
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$MoveInfo
+ it.gmariotti.recyclerview.itemanimator.BaseItemAnimator$VpaListenerAdapter
+it/gmariotti/recyclerview/itemanimator/SlideInOutTopItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.SlideInOutTopItemAnimator
+ it.gmariotti.recyclerview.itemanimator.SlideInOutTopItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.SlideInOutTopItemAnimator$2
+it/gmariotti/recyclerview/adapter/helper/ViewAnimator.java
+ it.gmariotti.recyclerview.adapter.helper.ViewAnimator
+it/gmariotti/recyclerview/adapter/helper/AnimatorUtil.java
+ it.gmariotti.recyclerview.adapter.helper.AnimatorUtil
+it/gmariotti/recyclerview/itemanimator/SlideInOutLeftItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.SlideInOutLeftItemAnimator
+ it.gmariotti.recyclerview.itemanimator.SlideInOutLeftItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.SlideInOutLeftItemAnimator$2
+it/gmariotti/recyclerview/adapter/SlideInBottomAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter
+it/gmariotti/recyclerview/itemanimator/SlideInOutBottomItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.SlideInOutBottomItemAnimator
+ it.gmariotti.recyclerview.itemanimator.SlideInOutBottomItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.SlideInOutBottomItemAnimator$2
+it/gmariotti/recyclerview/itemanimator/BuildConfig.java
+ it.gmariotti.recyclerview.itemanimator.BuildConfig
+it/gmariotti/recyclerview/adapter/ScaleInAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter
+it/gmariotti/recyclerview/adapter/SlideInLeftAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.SlideInLeftAnimatorAdapter
+it/gmariotti/recyclerview/itemanimator/SlideScaleInOutRightItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator
+ it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator$2
+it/gmariotti/recyclerview/adapter/SwingBottomInAnimationAdapter.java
+ it.gmariotti.recyclerview.adapter.SwingBottomInAnimationAdapter
+it/gmariotti/recyclerview/adapter/AnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.AnimatorAdapter
+it/gmariotti/recyclerview/itemanimator/SlideInOutRightItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.SlideInOutRightItemAnimator
+ it.gmariotti.recyclerview.itemanimator.SlideInOutRightItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.SlideInOutRightItemAnimator$2
+it/gmariotti/recyclerview/adapter/AlphaAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.AlphaAnimatorAdapter
+it/gmariotti/recyclerview/adapter/SlideInRightAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.SlideInRightAnimatorAdapter
+it/gmariotti/recyclerview/itemanimator/ScaleInOutItemAnimator.java
+ it.gmariotti.recyclerview.itemanimator.ScaleInOutItemAnimator
+ it.gmariotti.recyclerview.itemanimator.ScaleInOutItemAnimator$1
+ it.gmariotti.recyclerview.itemanimator.ScaleInOutItemAnimator$2

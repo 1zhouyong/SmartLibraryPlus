@@ -6,7 +6,7 @@ import com.example.smartlibrary.base.BasePresenter;
 import com.example.smartlibrary.bean.SeatListBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.bean.base.BaseObjectBean;
-import com.example.smartlibrary.contract.ReservationContract;
+import com.example.smartlibrary.contract.SeatMainContract;
 import com.example.smartlibrary.model.ReservationModel;
 import com.example.smartlibrary.net.RxScheduler;
 import com.example.smartlibrary.utils.LogUtils;
@@ -17,9 +17,9 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import okhttp3.RequestBody;
 
-public class ReservationPresenter extends BasePresenter<ReservationContract.View> implements ReservationContract.Presenter{
+public class ReservationPresenter extends BasePresenter<SeatMainContract.View> implements SeatMainContract.Presenter{
 
-    private ReservationContract.Model model;
+    private SeatMainContract.Model model;
 
     public ReservationPresenter(){
         model = new ReservationModel();

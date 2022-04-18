@@ -10,7 +10,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.RequestBody;
 
-public interface ReservationContract {
+public interface SeatMainContract {
 
     interface Model{
         Observable<BaseArrayBean<SeatListBean>> getSeatList(String header, RequestBody requestBody);

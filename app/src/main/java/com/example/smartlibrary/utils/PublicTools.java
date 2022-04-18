@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PublicTools {
 
@@ -74,5 +76,58 @@ public class PublicTools {
         String data =  newstringBuilder.toString();
         return data;
     }
+
+
+    // 判断身份证号是否合法
+    public static Boolean judgeId(String id)
+    {
+        Boolean result = true;
+
+        // 长度不等于 18 位
+        if(id.length() != 18) return false;
+
+        // 系数算法
+        String tempId = getStr(id,0,16);
+        int[] coeff = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
+        char[] end = {'1','0','X','9','8','7','6','5','4','3','2'};
+        int sum = 0;
+        for (int i = 0; i < tempId.length(); i++)
+        {
+            int bye = tempId.charAt(i) - '0';
+            sum += bye * coeff[i];
+        }
+        sum %= 11;
+        if(end[sum] != getStr(id,17,17).charAt(0)) result = false;
+
+        return result;
+    }
+
+    // 截取字符串的方法
+    public static String getStr(String str,int a,int b)
+    {
+        b++;
+        return str.substring(a,b);
+    }
+
+    /**
+     * 正则表达式校验手机号码
+     * @return false 则手机号码不合法，true 则手机号码校验通过
+     */
+    public static boolean validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber.length() != 11) {
+            System.out.print("手机号应为11位数 ");
+            return false;
+        }else{
+            String regPattern =  "^((13[0-9])|(14[5,7,9])|(15([0-3]|[5-9]))|(166)|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[8|9]))\\d{8}$";
+            Pattern pattern = Pattern.compile(regPattern);
+            Matcher matcher = pattern.matcher(phoneNumber);
+            boolean isMatch = matcher.matches();
+            if (!isMatch) {
+                System.out.print("请填入正确的手机号 ");
+            }
+            return isMatch;
+        }
+    }
+
 
 }

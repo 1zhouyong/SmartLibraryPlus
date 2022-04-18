@@ -1,2 +1,3 @@
 rootProject.name = "SmartLibrary"
 include ':app'
+include ':library'

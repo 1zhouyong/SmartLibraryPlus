@@ -1,5 +1,6 @@
 package com.example.smartlibrary.net;
 
+import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.SeatListBean;
 import com.example.smartlibrary.bean.UseInfoBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
@@ -76,4 +77,7 @@ public interface APIService {
 
     @POST("user/modifyUser")
     Observable<BaseObjectBean<Boolean>> updateInfo(@Header("Login-Pass")String token,@Body RequestBody body);
+
+    @POST("lecture/select")
+    Observable<BaseArrayBean<LectureBean>> getLectureList(@Header("Login-Pass")String token);
 }
