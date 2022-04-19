@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartlibrary.LectureListAdapter;
 import com.example.smartlibrary.R;
-import com.example.smartlibrary.base.BaseFragment;
+import com.example.smartlibrary.app.BaseApplication;
 import com.example.smartlibrary.base.BaseMvpFragment;
 import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.contract.LectureMainContract;
 import com.example.smartlibrary.presenter.LectureMainPresenter;
+import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.NormalTitleBar;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class LecturesMainFragment extends BaseMvpFragment<LectureMainPresenter> 
         super.onCreate(savedInstanceState);
         presenter = new LectureMainPresenter();
         presenter.attachView(this);
+        presenter.selectLecture(ShareUtils.getString(BaseApplication.getAppContext(), "token"));
 
     }
 
