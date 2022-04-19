@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.SeatPageAdapter;
@@ -18,6 +19,7 @@ import com.example.smartlibrary.utils.MapToRequestBodyUtil;
 import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.utils.ShareUtils;
 import com.example.smartlibrary.widget.CustomSpinner;
+import com.example.smartlibrary.widget.UsualDialogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +51,7 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     private List<SeatListBean> seatList = new ArrayList<>();
     private String userId;
     private String token;
+    private UsualDialogger dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,12 +172,32 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
 
     @Override
     public void onClick(View view) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
-        map.put("id",String.valueOf((currentClickItem)));
-        map.put("userId",userId);
+        UsualDialogger.Builder dialog = UsualDialogger.Builder(this)
+                .setTitle("提示")
+                .setMessage("您预约的座位是：" + seatList.get(currentClickItem - 1).getPlace());
 
-        presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
+        dialog.build().shown();
+
+        dialog.setOnCancelClickListener("取消", new UsualDialogger.onCancelClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog != null) {
+                    dialog.build().dismiss();
+                }
+            }
+        });
+
+        dialog.setOnConfirmClickListener("确定", new UsualDialogger.onConfirmClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
+                map.put("id",String.valueOf((currentClickItem)));
+                map.put("userId",userId);
+
+                presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
+            }
+        });
     }
 
     @Override
