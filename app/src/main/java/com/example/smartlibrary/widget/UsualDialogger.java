@@ -32,8 +32,8 @@ public class UsualDialogger extends Dialog {
 
     private final String TITLE;
     private final String MESSAGE;
-    private final String CONFIRMTEXT;
-    private final String CANCELTEXT;
+    private final String CONFIRMTEXT ;
+    private final String CANCELTEXT ;
     private final onConfirmClickListener ONCONFIRMCLICKLISTENER;
     private final onCancelClickListener ONCANCELCLICKLISTENER;
 
@@ -81,10 +81,10 @@ public class UsualDialogger extends Dialog {
         if (!MESSAGE.isEmpty()) {
             tvMessage.setText(MESSAGE);
         }
-        if (!CONFIRMTEXT.isEmpty()) {
+        if (CONFIRMTEXT != null && !CONFIRMTEXT.isEmpty()) {
             btnConfirm.setText(CONFIRMTEXT);
         }
-        if (!CANCELTEXT.isEmpty()) {
+        if (CANCELTEXT != null && !CANCELTEXT.isEmpty()) {
             btnCancel.setText(CANCELTEXT);
         }
 

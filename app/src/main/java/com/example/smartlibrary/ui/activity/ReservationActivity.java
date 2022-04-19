@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.SeatPageAdapter;
@@ -175,9 +174,6 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
         UsualDialogger.Builder dialog = UsualDialogger.Builder(this)
                 .setTitle("提示")
                 .setMessage("您预约的座位是：" + seatList.get(currentClickItem - 1).getPlace());
-
-        dialog.build().shown();
-
         dialog.setOnCancelClickListener("取消", new UsualDialogger.onCancelClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,6 +194,9 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
                 presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
             }
         });
+        dialog.build().shown();
+
+
     }
 
     @Override
