@@ -1,6 +1,8 @@
 package com.example.smartlibrary.net;
 
 import com.example.smartlibrary.bean.LectureBean;
+import com.example.smartlibrary.bean.MyLectureBean;
+import com.example.smartlibrary.bean.MySeatBean;
 import com.example.smartlibrary.bean.SeatListBean;
 import com.example.smartlibrary.bean.UseInfoBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
@@ -12,6 +14,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -80,4 +83,21 @@ public interface APIService {
 
     @POST("lecture/select")
     Observable<BaseArrayBean<LectureBean>> getLectureList(@Header("Login-Pass")String token);
+
+    @POST("lecture/orderLecture")
+    Observable<BaseObjectBean<Boolean>> orderLecture(@Header("Login-Pass")String token,@Body RequestBody body);
+
+    @POST("seat/queryOrderSeatByUserDay")
+    Observable<BaseObjectBean<MySeatBean>> queryMySeat(@Header("Login-Pass")String token,@Body RequestBody body);
+
+    @POST("seat/cancelOrderSeat")
+    Observable<BaseObjectBean<Boolean>> cancelOderSeat(@Header("Login-Pass")String token,@Body RequestBody body);
+
+    @POST("lecture/selectUserOrderLecture")
+    Observable<BaseArrayBean<MyLectureBean>> getMyLecture(@Header("Login-Pass")String token, @Body RequestBody body);
+
+
+
+
+
 }

@@ -26,6 +26,8 @@ import com.example.smartlibrary.base.BaseMvpFragment;
 import com.example.smartlibrary.contract.MyMainContract;
 import com.example.smartlibrary.presenter.MyMainPresenter;
 import com.example.smartlibrary.ui.activity.MainActivity;
+import com.example.smartlibrary.ui.activity.MyLectureActivity;
+import com.example.smartlibrary.ui.activity.MySeatInfoActivity;
 import com.example.smartlibrary.ui.activity.UserInfoActivity;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.ShareUtils;
@@ -72,6 +74,13 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
     CircleImageView imgLogo;
     @BindView(R.id.ll_user_info)
     LinearLayout llUserInfo;
+    @BindView(R.id.ll_seat_info)
+    LinearLayout llSeatInfo;
+    @BindView(R.id.ll_book_info)
+    LinearLayout llBookInfo;
+    @BindView(R.id.ll_lecture_info)
+    LinearLayout llLectureInfo;
+
     //打开相册的请求码
     private static final int MY_ADD_CASE_CALL_PHONE2 = 7;
 
@@ -126,16 +135,30 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.img_logo,R.id.ll_user_info})
+    @OnClick({R.id.img_logo,R.id.ll_user_info,R.id.ll_seat_info,R.id.ll_book_info,R.id.ll_lecture_info})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.img_logo:
                 showImgChooseDialog();
                 break;
             case R.id.ll_user_info:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("UserInfo",activity.infoBean);
-                startActivity(UserInfoActivity.class, bundle );
+                Bundle userBundle = new Bundle();
+                userBundle.putSerializable("UserInfo",activity.infoBean);
+                startActivity(UserInfoActivity.class, userBundle );
+                break;
+            case R.id.ll_seat_info:
+                Bundle seatBundle = new Bundle();
+                seatBundle.putString("name",activity.infoBean.getName());
+                seatBundle.putString("studyId",activity.infoBean.getStudyId());
+                seatBundle.putString("userId", activity.infoBean.getId()+"");
+                startActivity(MySeatInfoActivity.class, seatBundle );
+                break;
+            case R.id.ll_book_info:
+                break;
+            case R.id.ll_lecture_info:
+                Bundle lectureBundle = new Bundle();
+                lectureBundle.putString("userId",activity.infoBean.getId()+"");
+                startActivity(MyLectureActivity.class,lectureBundle);
                 break;
 
         }

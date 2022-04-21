@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.UpdateInfoActivity"></activity>
+        <activity android:name=".ui.activity.MyLectureActivity"></activity>
+        <activity android:name=".ui.activity.MySeatInfoActivity" />
+        <activity android:name=".ui.activity.LectureInfoActivity" />
+        <activity android:name=".ui.activity.UpdateInfoActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.ReservationActivity" />
         <activity android:name=".demo.DemoActivity" /> <!-- 解决安卓10无法往手机写文件 -->

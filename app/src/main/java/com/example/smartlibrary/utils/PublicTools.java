@@ -129,5 +129,10 @@ public class PublicTools {
         }
     }
 
+    public static String getDate(Date date){
+        String format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss").format(date);
+        return format;
+    }
+
 
 }

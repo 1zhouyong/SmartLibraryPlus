@@ -29,10 +29,10 @@ it/gmariotti/recyclerview/itemanimator/SlideInOutBottomItemAnimator.java
  it.gmariotti.recyclerview.itemanimator.SlideInOutBottomItemAnimator$2
 it/gmariotti/recyclerview/itemanimator/BuildConfig.java
  it.gmariotti.recyclerview.itemanimator.BuildConfig
-it/gmariotti/recyclerview/adapter/SlideInLeftAnimatorAdapter.java
- it.gmariotti.recyclerview.adapter.SlideInLeftAnimatorAdapter
 it/gmariotti/recyclerview/adapter/ScaleInAnimatorAdapter.java
  it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter
+it/gmariotti/recyclerview/adapter/SlideInLeftAnimatorAdapter.java
+ it.gmariotti.recyclerview.adapter.SlideInLeftAnimatorAdapter
 it/gmariotti/recyclerview/itemanimator/SlideScaleInOutRightItemAnimator.java
  it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator
  it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator$1

@@ -1,5 +1,6 @@
 package com.example.smartlibrary.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /*
@@ -19,7 +20,7 @@ import java.util.Date;
  * 2022/4/18 : Create LectureListBean.java
  * -----------------------------------------------------------------
  */
-public class LectureBean {
+public class LectureBean implements Serializable {
     /**
      * id : 1
      * name : 大学生心理素质讲座
