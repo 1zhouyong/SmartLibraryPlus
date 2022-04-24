@@ -35,7 +35,7 @@ public class ReservationPresenter extends BasePresenter<SeatMainContract.View> i
                 .subscribe(new Observer<BaseArrayBean<SeatListBean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        mView.showLoading();
+                        mView.showLoading("正在加载...");
                     }
 
                     @Override
@@ -50,7 +50,7 @@ public class ReservationPresenter extends BasePresenter<SeatMainContract.View> i
 
                     @Override
                     public void onComplete() {
-                        mView.hideLoading();
+                        mView.hideLoading(1.5);
                     }
                 });
     }
@@ -63,12 +63,12 @@ public class ReservationPresenter extends BasePresenter<SeatMainContract.View> i
                 .subscribe(new Observer<BaseObjectBean<Boolean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        mView.showLoading();
+                        mView.showLoading("正在预定...");
+
                     }
 
                     @Override
                     public void onNext(@NonNull BaseObjectBean<Boolean> booleanBaseObjectBean) {
-                        LogUtils.logd("Throwable == " + booleanBaseObjectBean.getErrorMsg());
                         mView.orderSeatSuccess(booleanBaseObjectBean.getSuccess());
                     }
 
@@ -83,7 +83,7 @@ public class ReservationPresenter extends BasePresenter<SeatMainContract.View> i
 
                     @Override
                     public void onComplete() {
-                        mView.hideLoading();
+                        mView.hideLoading(3);
                     }
                 });
     }

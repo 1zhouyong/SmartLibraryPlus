@@ -2,7 +2,9 @@ package com.example.smartlibrary.utils;
 
 import android.content.Context;
 
+import com.example.smartlibrary.R;
 import com.example.smartlibrary.app.AppConstant;
+import com.example.smartlibrary.widget.LoadingDialog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PublicTools {
+
+    private static LoadingDialog loadingDialog;
 
     public static String changeImageUrl(String uri) {
         String imageUrl = uri.replace("\\", "/").
@@ -135,4 +139,15 @@ public class PublicTools {
     }
 
 
+    public static void showDialog(Context context,String text){
+        loadingDialog = new LoadingDialog(context,text, R.mipmap.ic_dialog_loading);
+        loadingDialog.show();
+    }
+
+    public static void hideDialog(){
+        if (loadingDialog != null){
+            loadingDialog.dismiss();
+        }
+
+    }
 }

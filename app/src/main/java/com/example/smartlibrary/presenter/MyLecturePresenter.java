@@ -1,11 +1,8 @@
 package com.example.smartlibrary.presenter;
 
-import android.net.wifi.aware.PublishConfig;
-
 import com.example.smartlibrary.base.BasePresenter;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
-import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.MyLectureContract;
 import com.example.smartlibrary.model.MyLectureModel;
 import com.example.smartlibrary.net.RxScheduler;
@@ -60,6 +57,7 @@ public class MyLecturePresenter extends BasePresenter<MyLectureContract.View> im
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+
                         mView.hideLoading();
                     }
 

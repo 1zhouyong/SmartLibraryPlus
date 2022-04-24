@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.utils.ToastUitl;
-import com.example.smartlibrary.widget.LoadingDialog;
+import com.example.smartlibrary.widget.LoadDialog;
 import com.example.smartlibrary.widget.StatusBarCompat;
 
 import butterknife.ButterKnife;
@@ -85,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 开启浮动加载进度条
      */
     public void startProgressDialog() {
-        LoadingDialog.showDialogForLoading(this);
+        LoadDialog.showDialogForLoading(this);
     }
 
     /**
@@ -94,14 +94,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param msg
      */
     public void startProgressDialog(String msg) {
-        LoadingDialog.showDialogForLoading(this, msg, true);
+        LoadDialog.showDialogForLoading(this, msg, true);
     }
 
     /**
      * 停止浮动加载进度条
      */
     public void stopProgressDialog() {
-        LoadingDialog.cancelDialogForLoading();
+        LoadDialog.cancelDialogForLoading();
     }
 
     /**

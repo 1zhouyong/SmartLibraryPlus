@@ -6,6 +6,7 @@ import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.MySeatContract;
 import com.example.smartlibrary.model.MySeatModel;
 import com.example.smartlibrary.net.RxScheduler;
+import com.example.smartlibrary.utils.LogUtils;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
@@ -39,7 +40,7 @@ public class MySeatPresenter extends BasePresenter<MySeatContract.View> implemen
 
 
     @Override
-    public void submit(String token, RequestBody body) {
+    public void submit(String token, RequestBody body ,String date) {
         model.getMySeat(token,body)
                 .compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
@@ -51,7 +52,7 @@ public class MySeatPresenter extends BasePresenter<MySeatContract.View> implemen
 
                     @Override
                     public void onNext(@NonNull BaseObjectBean<MySeatBean> mySeatBeanBaseObjectBean) {
-                        mView.getMySeatSuccess(mySeatBeanBaseObjectBean.getResult());
+                        mView.getMySeatSuccess(mySeatBeanBaseObjectBean.getResult(),date);
                     }
 
                     @Override
@@ -86,6 +87,7 @@ public class MySeatPresenter extends BasePresenter<MySeatContract.View> implemen
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        LogUtils.logd("Throwable == " + e.getMessage());
                         mView.hideLoading();
                     }
 

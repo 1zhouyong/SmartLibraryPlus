@@ -1,14 +1,11 @@
 package com.example.smartlibrary.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.MyLectureAdapter;
 import com.example.smartlibrary.app.BaseApplication;
-import com.example.smartlibrary.base.BaseActivity;
 import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.contract.MyLectureContract;
@@ -49,6 +46,7 @@ public class MyLectureActivity extends BaseMvpActivity<MyLecturePresenter> imple
         userId = getIntent().getStringExtra("userId");
         token = ShareUtils.getString(BaseApplication.getAppContext(), "token");
         presenter = new MyLecturePresenter();
+        presenter.attachView(this);
         HashMap<String, String> map = new HashMap<>();
         map.put("userId", userId);
         presenter.submitMyLecture(token, MapToRequestBodyUtil.convertMapToBody(map));
@@ -73,7 +71,12 @@ public class MyLectureActivity extends BaseMvpActivity<MyLecturePresenter> imple
 
     @Override
     public void getLectureListSuccess(List<MyLectureBean> beans) {
-        adapter = new MyLectureAdapter(this, beans);
-        lvMyLecture.setAdapter(adapter);
+        if (beans.size() == 0 || beans == null){
+
+        }else {
+            adapter = new MyLectureAdapter(this, beans);
+            lvMyLecture.setAdapter(adapter);
+        }
+
     }
 }

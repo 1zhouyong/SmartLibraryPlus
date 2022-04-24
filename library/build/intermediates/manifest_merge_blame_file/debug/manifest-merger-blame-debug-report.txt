@@ -4,12 +4,12 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="14"
-6-->E:\TestDemo\SmartLibrary\library\src\main\AndroidManifest.xml
+6-->/Users/apple/Desktop/AndroidProject/SmartLibraryPlus/library/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="22" />
-7-->E:\TestDemo\SmartLibrary\library\src\main\AndroidManifest.xml
+7-->/Users/apple/Desktop/AndroidProject/SmartLibraryPlus/library/src/main/AndroidManifest.xml
 8
 9    <application>
-9-->E:\TestDemo\SmartLibrary\library\src\main\AndroidManifest.xml:5:5-7:19
+9-->/Users/apple/Desktop/AndroidProject/SmartLibraryPlus/library/src/main/AndroidManifest.xml:5:5-7:19
 10    </application>
 11
 12</manifest>

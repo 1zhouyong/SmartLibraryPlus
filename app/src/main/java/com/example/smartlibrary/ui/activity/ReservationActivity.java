@@ -128,13 +128,39 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
     }
 
 
+
+    @Override
+    public void showLoading(String text) {
+        startProgressDialog(text);
+    }
+
+
+    @Override
     public void showLoading() {
 
     }
 
     @Override
+    public void hideLoading(double time) {
+        LogUtils.logd("time == " + time);
+        try {
+            Thread.currentThread().sleep((int)time * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stopProgressDialog();
+    }
+
+
+    @Override
     public void hideLoading() {
 
+
+    }
+
+    @Override
+    public void onError() {
+        stopProgressDialog();
     }
 
     @Override
@@ -171,31 +197,11 @@ public class ReservationActivity extends BaseMvpActivity<ReservationPresenter> i
 
     @Override
     public void onClick(View view) {
-        UsualDialogger.Builder dialog = UsualDialogger.Builder(this)
-                .setTitle("提示")
-                .setMessage("您预约的座位是：" + seatList.get(currentClickItem - 1).getPlace());
-        dialog.setOnCancelClickListener("取消", new UsualDialogger.onCancelClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.build().dismiss();
-                }
-            }
-        });
-
-        dialog.setOnConfirmClickListener("确定", new UsualDialogger.onConfirmClickListener() {
-            @Override
-            public void onClick(View view) {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
-                map.put("id",String.valueOf((currentClickItem)));
-                map.put("userId",userId);
-
-                presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
-            }
-        });
-        dialog.build().shown();
-
+        HashMap<String, String> map = new HashMap<>();
+        map.put("date", PublicTools.getNowDay1(Integer.valueOf(dateType.trim())));
+        map.put("id",String.valueOf((currentClickItem)));
+        map.put("userId",userId);
+        presenter.order(token,MapToRequestBodyUtil.convertMapToBody(map));
 
     }
 

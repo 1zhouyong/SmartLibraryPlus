@@ -1,24 +1,19 @@
 package com.example.smartlibrary.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.icu.text.UnicodeSetSpanner;
-import android.os.Bundle;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.MySeatAdapter;
 import com.example.smartlibrary.app.BaseApplication;
-import com.example.smartlibrary.base.BaseActivity;
 import com.example.smartlibrary.base.BaseMvpActivity;
 import com.example.smartlibrary.bean.MySeatBean;
-import com.example.smartlibrary.bean.base.BaseObjectBean;
 import com.example.smartlibrary.contract.MySeatContract;
-import com.example.smartlibrary.net.RetrofitClient;
 import com.example.smartlibrary.presenter.MySeatPresenter;
+import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.MapToRequestBodyUtil;
 import com.example.smartlibrary.utils.PublicTools;
 import com.example.smartlibrary.utils.ShareUtils;
@@ -29,14 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MySeatInfoActivity extends BaseMvpActivity<MySeatPresenter> implements MySeatContract.View, MySeatAdapter.CancelCallBack {
 
@@ -56,6 +43,8 @@ public class MySeatInfoActivity extends BaseMvpActivity<MySeatPresenter> impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
 
     @Override
@@ -65,37 +54,51 @@ public class MySeatInfoActivity extends BaseMvpActivity<MySeatPresenter> impleme
 
     @Override
     public void initView() {
-        adapter = new MySeatAdapter(this,mySeatList);
-        recMySeat.setLayoutManager(new LinearLayoutManager(this));
-        recMySeat.setAdapter(adapter);
+        ntb.setTitleText("我的座位");
+        ntb.setOnBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         token = ShareUtils.getString(BaseApplication.getAppContext(), "token", "");
         userId = getIntent().getStringExtra("userId");
         name = getIntent().getStringExtra("name");
         studyId = getIntent().getStringExtra("studyId");
+        adapter = new MySeatAdapter(this,mySeatList);
+        recMySeat.setLayoutManager(new LinearLayoutManager(this));
+        recMySeat.setAdapter(adapter);
+
         presenter = new MySeatPresenter();
         presenter.attachView(this);
-        submit("0");
-        submit("1");
+        submit(0);
+        submit(1);
         adapter.setCancelCallBack(this);
 
     }
 
-    private void submit(String day) {
+    private void submit(int day) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("day",day);
+        map.put("day", PublicTools.getNowDay1(day));
         map.put("userId", userId);
-        presenter.submit(token,MapToRequestBodyUtil.convertMapToBody(map));
+        presenter.submit(token,MapToRequestBodyUtil.convertMapToBody(map),PublicTools.getNowDay1(day));
     }
 
 
     @Override
-    public void getMySeatSuccess(MySeatBean bean) {
-        mySeatList.add(bean);
-        adapter.notifyDataSetChanged();
+    public void getMySeatSuccess(MySeatBean bean,String date) {
+        if (bean != null){
+            bean.setDate(date);
+            mySeatList.add(bean);
+            adapter.setName(name);
+            adapter.setStudyId(studyId);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void cancelSucees(int postion) {
+        showLongToast("取消成功");
         mySeatList.remove(postion);
         adapter.notifyDataSetChanged();
     }
@@ -119,9 +122,10 @@ public class MySeatInfoActivity extends BaseMvpActivity<MySeatPresenter> impleme
     @Override
     public void cancel(int position) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("date", (String) mySeatList.get(position).getDate());
+        map.put("date", mySeatList.get(position).getDate()+"");
         map.put("id",mySeatList.get(position).getId()+"");
         map.put("userId",userId);
-        presenter.cancelSeat(token,MapToRequestBodyUtil.convertMapToBody(map),position);
+        LogUtils.logd("date == " + mySeatList.get(position).getDate() + "id == "+mySeatList.get(position).getId());
+        presenter.cancelSeat( token , MapToRequestBodyUtil.convertMapToBody(map),position);
     }
 }

@@ -19,8 +19,25 @@ public interface SeatMainContract {
     }
 
     interface View extends BaseView {
-        void success(List<SeatListBean> list);
 
+        /**
+         * 显示加载中
+         */
+        void showLoading(String text);
+
+        /**
+         * 隐藏加载
+         */
+        void hideLoading(double time);
+
+        /**
+         * 数据获取失败
+         * @param
+         */
+        void onError();
+
+
+        void success(List<SeatListBean> list);
 
         void orderSeatSuccess(Boolean isSuccess);
     }

@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.bean.MySeatBean;
-import com.example.smartlibrary.contract.MySeatContract;
-import com.example.smartlibrary.ui.activity.MainActivity;
 import com.example.smartlibrary.utils.PublicTools;
 
 import java.text.SimpleDateFormat;
@@ -66,7 +64,7 @@ public class MySeatAdapter extends RecyclerView.Adapter<MySeatAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.my_seat_info, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.my_seat_info, parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -104,7 +102,6 @@ public class MySeatAdapter extends RecyclerView.Adapter<MySeatAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View rootView;
         public TextView tv_time;
         public TextView tv_order_num;
         public TextView tv_name;
@@ -115,7 +112,6 @@ public class MySeatAdapter extends RecyclerView.Adapter<MySeatAdapter.ViewHolder
 
         public ViewHolder(View rootView) {
             super(rootView);
-            this.rootView = rootView;
             this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
             this.tv_order_num = (TextView) rootView.findViewById(R.id.tv_order_num);
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);

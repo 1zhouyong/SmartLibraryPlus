@@ -35,13 +35,13 @@ public interface MySeatContract {
     }
 
     interface View extends BaseView{
-        void getMySeatSuccess(MySeatBean bean);
+        void getMySeatSuccess(MySeatBean bean, String date);
 
         void cancelSucees(int postion);
     }
 
     interface Presenter {
-        void submit(String token,RequestBody body);
+        void submit(String token,RequestBody body,String date);
 
         void cancelSeat(String token,RequestBody body,int postion);
     }

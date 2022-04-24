@@ -20,21 +20,21 @@ import java.util.List;
 public class MyLectureAdapter extends BaseAdapter {
 
     private Context context;
-    private List<MyLectureBean> list;
+    private List<MyLectureBean> beans;
 
-    public MyLectureAdapter(Context context, List<MyLectureBean> list) {
+    public MyLectureAdapter(Context context, List<MyLectureBean> beans) {
         this.context = context;
-        this.list = list;
+        this.beans = beans;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return beans.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return list.get(i);
+        return beans.get(i);
     }
 
     @Override
@@ -45,11 +45,11 @@ public class MyLectureAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_lecture, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_my_lecture, viewGroup, false);
         }
         ViewHolder holder = new ViewHolder(view);
-        holder.tv_lecture_name.setText(list.get(i).getName());
-        holder.tv_lecture_teacher.setText("主讲人： "+list.get(i).getTeacher());
+        holder.tv_lecture_name.setText(beans.get(i).getName());
+        holder.tv_lecture_teacher.setText("主讲人： "+beans.get(i).getTeacher());
         return view;
     }
 
@@ -68,6 +68,8 @@ public class MyLectureAdapter extends BaseAdapter {
         }
 
     }
+
+
 
 
 }
