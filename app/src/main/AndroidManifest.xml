@@ -20,25 +20,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MyLectureActivity"></activity>
+        <activity android:name=".ui.activity.UpdatePwdActivity" />
+        <activity android:name=".ui.activity.MyLectureActivity" />
         <activity android:name=".ui.activity.MySeatInfoActivity" />
         <activity android:name=".ui.activity.LectureInfoActivity" />
         <activity android:name=".ui.activity.UpdateInfoActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.ReservationActivity" />
-        <activity android:name=".demo.DemoActivity" /> <!-- 解决安卓10无法往手机写文件 -->
-        <activity android:name=".ui.activity.BookInfoActivity" />
-        <activity android:name=".ui.activity.BookTypeChooseActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity
-            android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.Launcher">
+        <activity android:name=".demo.DemoActivity" >
+
+        </activity> <!-- 解决安卓10无法往手机写文件 -->
+        <activity android:name=".ui.activity.BookInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.BookTypeChooseActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/AppTheme.Launcher"></activity>
         <activity android:name=".ui.activity.GuideActivity" />
         <activity
             android:name=".ui.activity.MainActivity"

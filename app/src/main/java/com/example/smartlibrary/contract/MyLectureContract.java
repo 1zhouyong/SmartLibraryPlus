@@ -2,6 +2,7 @@ package com.example.smartlibrary.contract;
 
 import com.example.smartlibrary.base.BaseModel;
 import com.example.smartlibrary.base.BaseView;
+import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.bean.base.BaseObjectBean;
@@ -31,11 +32,11 @@ import okhttp3.RequestBody;
 public interface MyLectureContract {
 
     interface Model extends BaseModel{
-        Observable<BaseArrayBean<MyLectureBean>> getMyLecture(String token, RequestBody body);
+        Observable<BaseArrayBean<LectureBean>> getMyLecture(String token, RequestBody body);
     }
 
     interface View extends BaseView{
-        void getLectureListSuccess(List<MyLectureBean> beans);
+        void getLectureListSuccess(List<LectureBean> beans);
     }
 
     interface Presenter{

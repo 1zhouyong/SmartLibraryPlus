@@ -1,5 +1,6 @@
 package com.example.smartlibrary.model;
 
+import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.bean.base.BaseObjectBean;
@@ -28,7 +29,7 @@ import okhttp3.RequestBody;
  */
 public class MyLectureModel implements MyLectureContract.Model {
     @Override
-    public Observable<BaseArrayBean<MyLectureBean>> getMyLecture(String token, RequestBody body) {
+    public Observable<BaseArrayBean<LectureBean>> getMyLecture(String token, RequestBody body) {
         return RetrofitClient.getInstance().getApi().getMyLecture(token,body);
     }
 }

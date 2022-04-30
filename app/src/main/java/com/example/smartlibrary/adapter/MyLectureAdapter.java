@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.smartlibrary.R;
+import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.MyLectureBean;
 
 import java.util.List;
@@ -20,9 +21,9 @@ import java.util.List;
 public class MyLectureAdapter extends BaseAdapter {
 
     private Context context;
-    private List<MyLectureBean> beans;
+    private List<LectureBean> beans;
 
-    public MyLectureAdapter(Context context, List<MyLectureBean> beans) {
+    public MyLectureAdapter(Context context, List<LectureBean> beans) {
         this.context = context;
         this.beans = beans;
     }

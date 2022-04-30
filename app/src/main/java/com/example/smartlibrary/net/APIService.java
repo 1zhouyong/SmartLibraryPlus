@@ -1,5 +1,6 @@
 package com.example.smartlibrary.net;
 
+import com.example.smartlibrary.bean.BookCommentBean;
 import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.bean.MySeatBean;
@@ -94,10 +95,27 @@ public interface APIService {
     Observable<BaseObjectBean<Boolean>> cancelOderSeat(@Header("Login-Pass")String token,@Body RequestBody body);
 
     @POST("lecture/selectUserOrderLecture")
-    Observable<BaseArrayBean<MyLectureBean>> getMyLecture(@Header("Login-Pass")String token, @Body RequestBody body);
+    Observable<BaseArrayBean<LectureBean>> getMyLecture(@Header("Login-Pass")String token, @Body RequestBody body);
 
 
+    @POST("user/modifyPwd")
+    Observable<BaseObjectBean<Boolean>> UpdatePwd(@Header("Login-Pass")String token, @Body RequestBody body);
+
+    @POST("book/queryBookCommentByBookId")
+    Observable<BaseArrayBean<BookCommentBean>> queryBookComment(@Body RequestBody body);
 
 
+    @POST("book/addBookComment")
+    Observable<BaseObjectBean<Boolean>> addBookComment(@Body RequestBody body);
+
+    @POST("book/addBookCommentRecive")
+    Observable<BaseObjectBean<Boolean>> addBookCommentReply(@Body RequestBody body);
+
+
+    @POST("book/bookCommentPraise")
+    Observable<BaseObjectBean<Boolean>> setBookCommentPraise(@Body RequestBody body);
+
+    @POST("book/addBookToMy")
+    Observable<BaseObjectBean<Boolean>> addBookToMy(@Body RequestBody body);
 
 }

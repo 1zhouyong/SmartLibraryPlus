@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.smartlibrary.R;
@@ -40,7 +41,7 @@ public class LectureInfoActivity extends BaseMvpActivity<LectureInfoPresenter> i
     @BindView(R.id.tv_stopTime)
     TextView stopTime;
     @BindView(R.id.btn_bookLecture)
-    TextView btnBookLecture;
+    Button btnBookLecture;
     private LectureBean lectureBean;
     private LectureInfoPresenter presenter;
     private String token;
@@ -61,6 +62,9 @@ public class LectureInfoActivity extends BaseMvpActivity<LectureInfoPresenter> i
         token = ShareUtils.getString(this, "token", "");
         lectureBean = (LectureBean) getIntent().getSerializableExtra("LectureBean");
         userId = getIntent().getStringExtra("userId");
+        if (userId == null){
+            btnBookLecture.setVisibility(View.GONE);
+        }
         lectureName.setText(lectureBean.getName());
         lectureLocation.setText(lectureBean.getLocation());
         lectureTeacher.setText(lectureBean.getTeacher());

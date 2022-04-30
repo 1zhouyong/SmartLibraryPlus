@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,5 +150,37 @@ public class PublicTools {
             loadingDialog.dismiss();
         }
 
+    }
+
+
+    public static String getPassTime(String time){
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");//指定格式时间转换
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(time);
+            long datetime=date.getTime();//时间转换成毫秒值
+
+            long todaytime=new Date().getTime();//获取当前日期毫秒值
+
+            long Difference=todaytime-datetime;//差值
+
+            System.out.println(Difference/1000/60/60/24);
+
+            int passTime = (int) Difference/1000/60/60/24;
+
+            if (passTime < 1){
+                return "刚刚";
+            }else if (passTime >= 1 && passTime < 30){
+                return passTime+"天前";
+            }else if (passTime >= 30 && passTime < 365){
+                return passTime/30 +"月前";
+            }else if (passTime >= 365){
+                return passTime/365 +"年前";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "刚刚";
     }
 }

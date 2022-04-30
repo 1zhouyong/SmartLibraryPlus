@@ -20,6 +20,7 @@ import com.example.smartlibrary.adapter.MyPagerAdapter;
 import com.example.smartlibrary.base.BaseActivity;
 import com.example.smartlibrary.utils.CheckPermissionUtils;
 import com.example.smartlibrary.utils.DensityUtil;
+import com.example.smartlibrary.utils.LoadHandler;
 import com.example.smartlibrary.utils.ShareUtils;
 
 import java.util.ArrayList;
@@ -70,7 +71,6 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
     }
 
     /**

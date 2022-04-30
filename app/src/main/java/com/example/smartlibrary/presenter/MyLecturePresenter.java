@@ -1,6 +1,7 @@
 package com.example.smartlibrary.presenter;
 
 import com.example.smartlibrary.base.BasePresenter;
+import com.example.smartlibrary.bean.LectureBean;
 import com.example.smartlibrary.bean.MyLectureBean;
 import com.example.smartlibrary.bean.base.BaseArrayBean;
 import com.example.smartlibrary.contract.MyLectureContract;
@@ -44,14 +45,14 @@ public class MyLecturePresenter extends BasePresenter<MyLectureContract.View> im
         model.getMyLecture(token,body)
                 .compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseArrayBean<MyLectureBean>>() {
+                .subscribe(new Observer<BaseArrayBean<LectureBean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         mView.showLoading();
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseArrayBean<MyLectureBean> myLectureBeanBaseArrayBean) {
+                    public void onNext(@NonNull BaseArrayBean<LectureBean> myLectureBeanBaseArrayBean) {
                         mView.getLectureListSuccess(myLectureBeanBaseArrayBean.getResult());
                     }
 

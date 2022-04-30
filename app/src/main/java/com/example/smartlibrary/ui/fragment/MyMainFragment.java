@@ -28,6 +28,7 @@ import com.example.smartlibrary.presenter.MyMainPresenter;
 import com.example.smartlibrary.ui.activity.MainActivity;
 import com.example.smartlibrary.ui.activity.MyLectureActivity;
 import com.example.smartlibrary.ui.activity.MySeatInfoActivity;
+import com.example.smartlibrary.ui.activity.UpdatePwdActivity;
 import com.example.smartlibrary.ui.activity.UserInfoActivity;
 import com.example.smartlibrary.utils.LogUtils;
 import com.example.smartlibrary.utils.ShareUtils;
@@ -80,6 +81,8 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
     LinearLayout llBookInfo;
     @BindView(R.id.ll_lecture_info)
     LinearLayout llLectureInfo;
+    @BindView(R.id.ll_update_pwd)
+    LinearLayout llUpdatePwd;
 
     //打开相册的请求码
     private static final int MY_ADD_CASE_CALL_PHONE2 = 7;
@@ -135,7 +138,7 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
         return R.layout.fragment_my;
     }
 
-    @OnClick({R.id.img_logo,R.id.ll_user_info,R.id.ll_seat_info,R.id.ll_book_info,R.id.ll_lecture_info})
+    @OnClick({R.id.img_logo,R.id.ll_user_info,R.id.ll_seat_info,R.id.ll_book_info,R.id.ll_lecture_info,R.id.ll_update_pwd})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.img_logo:
@@ -154,11 +157,18 @@ public class MyMainFragment extends BaseMvpFragment<MyMainPresenter> implements 
                 startActivity(MySeatInfoActivity.class, seatBundle );
                 break;
             case R.id.ll_book_info:
+
                 break;
             case R.id.ll_lecture_info:
                 Bundle lectureBundle = new Bundle();
                 lectureBundle.putString("userId",activity.infoBean.getId()+"");
                 startActivity(MyLectureActivity.class,lectureBundle);
+                break;
+            case R.id.ll_update_pwd:
+                Bundle updateBundle = new Bundle();
+//                updateBundle.putString("userId",activity.infoBean.getId()+"");
+                updateBundle.putString("userName",activity.infoBean.getStudyId());
+                startActivity(UpdatePwdActivity.class,updateBundle);
                 break;
 
         }

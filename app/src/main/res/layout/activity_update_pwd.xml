@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E8E8E8"
+    tools:context=".ui.activity.UpdatePwdActivity">
+
+
+    <com.example.smartlibrary.widget.NormalTitleBar
+        android:id="@+id/ntb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="账号:"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="新密码:"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:textSize="15sp"
+        android:id="@+id/edt_newPassword"
+        android:inputType="textPassword"
+        android:hint="8-16位，至少含数字/字母/字符2种组合"
+        android:textStyle="bold"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="确认密码:"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:inputType="textPassword"
+        android:hint="8-16位，至少含数字/字母/字符2种组合"
+        android:id="@+id/edt_confirmPassword"
+        android:paddingLeft="20dp"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示密码"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/cb_showPassword"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_angle_seat_blue"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/btn_change"
+        android:layout_marginRight="10dp"
+        android:text="确定"
+        android:textColor="#fff"
+        />
+
+</LinearLayout>

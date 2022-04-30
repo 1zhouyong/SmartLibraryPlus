@@ -102,7 +102,6 @@ public class BookPageAdapter extends BaseAdapter {
             this.tv_book_name = (TextView) rootView.findViewById(R.id.tv_book_name);
             this.tv_fire = (TextView) rootView.findViewById(R.id.tv_fire);
         }
-
     }
 
 

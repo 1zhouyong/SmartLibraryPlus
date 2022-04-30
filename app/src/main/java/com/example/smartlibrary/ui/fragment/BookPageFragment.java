@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.smartlibrary.R;
 import com.example.smartlibrary.adapter.BookPageAdapter;
 import com.example.smartlibrary.base.BaseMvpFragment;
@@ -19,6 +21,7 @@ import com.example.smartlibrary.bean.BookTypeBean;
 import com.example.smartlibrary.contract.BookMainContract;
 import com.example.smartlibrary.presenter.BookMainPresenter;
 import com.example.smartlibrary.ui.activity.BookInfoActivity;
+import com.example.smartlibrary.ui.activity.MainActivity;
 import com.example.smartlibrary.utils.LogUtils;
 import com.flyco.tablayout.CommonTabLayout;
 
@@ -71,12 +74,16 @@ public class BookPageFragment extends BaseMvpFragment<BookMainPresenter> impleme
             presenter.selectBook(bookType);
         }
 
+        MainActivity activity = (MainActivity) getActivity();
+
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("book",bookTypeBeans.get(i));
+                bundle.putString("userId",activity.infoBean.getId()+"");
+                bundle.putString("studyId",activity.infoBean.getStudyId());
                 startActivity(BookInfoActivity.class, bundle);
             }
         });
